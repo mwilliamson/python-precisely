@@ -6,11 +6,15 @@ from nose.tools import istest
 if os.environ.get("HAMCREST"):
     from hamcrest import *
 else:
-    from spamfoot import *
+    from spamfoot.hamcrest import *
 
 
 User = collections.namedtuple("User", ["username", "email_address"]) 
 
+
+@istest
+def test_anything():
+    assert_that(1, anything())
 
 @istest
 def test_equal_to():
