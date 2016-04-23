@@ -39,10 +39,31 @@ def test_has_properties_wrong_value():
     ))
 
 
-
 @istest
 def test_all_of():
     assert_that(User("bob", "bob@example.com"), all_of(
         has_property("username", "bob"),
         has_property("email_address", "bobbity@example.com"),
     ))
+
+
+@istest
+def test_contains_inanyorder_missing_elements():
+    assert_that(
+        [
+            User("bob", "jim@example.com"),
+            User("jim", "bob@example.com"),
+        ],
+        contains_inanyorder(
+            has_properties(username="bob", email_address="bob@example.com"),
+            has_properties(username="jim", email_address="jim@example.com"),
+        )
+    )
+
+
+@istest
+def test_contains_inanyorder_extra_elements():
+    assert_that(
+        ["apple", "banana"],
+        contains_inanyorder("apple"),
+    )
