@@ -25,3 +25,11 @@ def test_has_property_wrong_value():
 @istest
 def test_has_property_missing():
     assert_that("bob", has_property("username", "bobbity"))
+
+
+@istest
+def test_has_properties_wrong_value():
+    assert_that(User("bob", "bob@example.com"), has_properties(
+        username="bob",
+        email_address="bobbity@example.com",
+    ))

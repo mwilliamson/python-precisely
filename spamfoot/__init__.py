@@ -1,5 +1,5 @@
 from .core_matchers import equal_to, anything
-from .object_matchers import has_property
+from .object_matchers import has_property, has_properties
 
 
 def assert_that(value, matcher):
