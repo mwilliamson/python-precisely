@@ -1,0 +1,2 @@
+nose>1,<2
+PyHamcrest==1.9.0
