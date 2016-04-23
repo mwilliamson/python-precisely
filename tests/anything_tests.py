@@ -1,7 +1,7 @@
 from nose.tools import istest, assert_equal
 
 from spamfoot import anything
-from spamfoot.results import matched, unmatched
+from spamfoot.results import matched
 
 
 @istest
