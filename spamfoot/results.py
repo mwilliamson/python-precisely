@@ -10,3 +10,7 @@ def matched():
 
 def unmatched(explanation):
     return _Result(False, explanation)
+
+
+def indented_list(items):
+    return "".join("\n  * {0}".format(item) for item in items)

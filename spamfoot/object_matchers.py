@@ -1,4 +1,4 @@
-from .results import matched, unmatched
+from .results import matched, unmatched, indented_list
 from .coercion import to_matcher
 
 
@@ -46,11 +46,7 @@ class HasProperties(object):
         return matched()
     
     def describe(self):
-        return "properties:{0}".format(_indented_list(
+        return "properties:{0}".format(indented_list(
             "{0}: {1}".format(matcher._name, matcher._matcher.describe())
             for matcher in self._matchers
         ))
-
-
-def _indented_list(items):
-    return "".join("\n  * {0}".format(item) for item in items)

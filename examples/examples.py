@@ -33,3 +33,12 @@ def test_has_properties_wrong_value():
         username="bob",
         email_address="bobbity@example.com",
     ))
+
+
+
+@istest
+def test_all_of():
+    assert_that(User("bob", "bob@example.com"), all_of(
+        has_property("username", "bob"),
+        has_property("email_address", "bobbity@example.com"),
+    ))

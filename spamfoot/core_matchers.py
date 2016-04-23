@@ -1,4 +1,4 @@
-from .results import matched, unmatched
+from .results import matched, unmatched, indented_list
 
 
 def equal_to(value):
@@ -28,3 +28,26 @@ class AnyThingMatcher(object):
 
 
 anything = AnyThingMatcher()
+
+
+def all_of(*matchers):
+    return AllOfMatcher(matchers)
+
+class AllOfMatcher(object):
+    def __init__(self, matchers):
+        self._matchers = matchers
+    
+    def match(self, actual):
+        for matcher in self._matchers:
+            result = matcher.match(actual)
+            if not result.is_match:
+                return result
+                
+        return matched()
+    
+    def describe(self):
+        return "all of:{0}".format(indented_list(
+            matcher.describe()
+            for matcher in self._matchers
+        ))
+

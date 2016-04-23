@@ -1,4 +1,4 @@
-from .core_matchers import equal_to, anything
+from .core_matchers import equal_to, anything, all_of
 from .object_matchers import has_property, has_properties
 
 
