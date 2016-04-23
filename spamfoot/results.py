@@ -13,4 +13,4 @@ def unmatched(explanation):
 
 
 def indented_list(items):
-    return "".join("\n  * {0}".format(item) for item in items)
+    return "".join("\n  * {0}".format(item.replace("\n", "\n  ")) for item in items)
