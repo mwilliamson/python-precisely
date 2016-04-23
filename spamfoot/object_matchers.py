@@ -28,14 +28,24 @@ class HasProperty(object):
         return "property {0}: {1}".format(self._name, value)
 
 
-def has_properties(**matchers):
-    return HasProperties(matchers)
+def has_properties(*args, **kwargs):
+    properties = []
+    if properties is not None:
+        for arg in args:
+            if isinstance(arg, dict):
+                properties += arg.items()
+            else:
+                properties.append(arg)
+    
+    properties += kwargs.items()
+    
+    return HasProperties(properties)
 
 class HasProperties(object):
     def __init__(self, matchers):
         self._matchers = [
             has_property(name, matcher)
-            for name, matcher in matchers.items()
+            for name, matcher in matchers
         ]
     
     def match(self, actual):

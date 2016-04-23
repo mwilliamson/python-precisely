@@ -21,8 +21,8 @@ def matches_when_properties_all_match():
 @istest
 def mismatches_when_property_is_missing():
     matcher = has_properties(
-        username=equal_to("bob"),
-        email_address=equal_to("bob@example.com"),
+        ("username", equal_to("bob")),
+        ("email_address", equal_to("bob@example.com")),
     )
     
     assert_equal(
@@ -58,7 +58,19 @@ def submatcher_is_coerced_to_matcher():
 def description_contains_descriptions_of_properties():
     matcher = has_properties(
         username=equal_to("bob"),
-        email_address=equal_to("bob@example.com"),
+    )
+    
+    assert_equal(
+        "properties:\n  * username: 'bob'",
+        matcher.describe()
+    )
+
+
+@istest
+def can_pass_properties_as_list_of_tuples():
+    matcher = has_properties(
+        ("username", equal_to("bob")),
+        ("email_address", equal_to("bob@example.com")),
     )
     
     assert_equal(
@@ -66,3 +78,14 @@ def description_contains_descriptions_of_properties():
         matcher.describe()
     )
 
+
+@istest
+def can_pass_properties_as_dictionary():
+    matcher = has_properties({
+        "username": equal_to("bob"),
+    })
+    
+    assert_equal(
+        "properties:\n  * username: 'bob'",
+        matcher.describe()
+    )
