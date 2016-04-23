@@ -23,3 +23,14 @@ class EqualToMatcher(object):
     
     def describe(self):
         return repr(self._value)
+
+
+class AnyThingMatcher(object):
+    def match(self, actual):
+        return matched()
+    
+    def describe(self):
+        return "anything"
+
+
+anything = AnyThingMatcher()
