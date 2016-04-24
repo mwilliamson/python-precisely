@@ -1,4 +1,4 @@
-Spamfoot: Python matcher library
-================================
+Swanfoot: matcher library for Python
+====================================
 
 
