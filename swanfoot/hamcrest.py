@@ -6,6 +6,7 @@ from . import (
     equal_to,
     has_property,
     has_properties,
+    is_same_sequence as contains,
 )
 
 def anything():

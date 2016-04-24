@@ -1,4 +1,9 @@
-from .results import matched, unmatched, indented_list
+try:
+    from itertools import zip_longest
+except ImportError:
+    from itertools import izip_longest as zip_longest
+
+from .results import matched, unmatched, indented_list, indexed_indented_list
 from .coercion import to_matcher
 
 
@@ -57,3 +62,38 @@ class _Matches(object):
                 for matched, value in zip(self._matched, self._values)
                 if not matched
             )))
+
+
+def is_same_sequence(*matchers):
+    return IsSameSequenceMatcher([to_matcher(matcher) for matcher in matchers])
+
+
+class IsSameSequenceMatcher(object):
+    _missing = object()
+    
+    def __init__(self, matchers):
+        self._matchers = matchers
+    
+    def match(self, actual):
+        values = list(actual)
+        extra = []
+        for index, (matcher, value) in enumerate(zip_longest(self._matchers, values, fillvalue=self._missing)):
+            if matcher is self._missing:
+                extra.append(value)
+            elif value is self._missing:
+                return unmatched("element at index {0} was missing".format(index))
+            else:
+                result = matcher.match(value)
+                if not result.is_match:
+                    return unmatched("element at index {0} mismatched:{1}".format(index, indented_list([result.explanation])))
+        
+        if extra:
+            return unmatched("had extra elements:{0}".format(indented_list(map(repr, extra))))
+        else:
+            return matched()
+    
+    def describe(self):
+        return "iterable containing in order:{0}".format(indexed_indented_list(
+            matcher.describe()
+            for matcher in self._matchers
+        ))

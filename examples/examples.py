@@ -67,3 +67,18 @@ def test_contains_inanyorder_extra_elements():
         ["apple", "banana"],
         contains_inanyorder("apple"),
     )
+
+
+
+@istest
+def test_contains_missing_elements():
+    assert_that(
+        [
+            User("bob", "jim@example.com"),
+            User("jim", "bob@example.com"),
+        ],
+        contains(
+            has_properties(username="bob", email_address="bob@example.com"),
+            has_properties(username="jim", email_address="jim@example.com"),
+        )
+    )
