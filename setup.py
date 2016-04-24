@@ -10,14 +10,14 @@ def read(fname):
 
 
 setup(
-    name='spamfoot',
+    name='swanfoot',
     version='0.1.0',
     description='Rich matchers, useful for assertions in tests. Inspired by Hamcrest.',
     long_description=read("README.rst"),
     author='Michael Williamson',
     author_email='mike@zwobble.org',
-    url='http://github.com/mwilliamson/python-spamfoot',
-    packages=['spamfoot'],
+    url='http://github.com/mwilliamson/python-swanfoot',
+    packages=['swanfoot'],
     keywords="matcher matchers",
     install_requires=[],
     classifiers=[

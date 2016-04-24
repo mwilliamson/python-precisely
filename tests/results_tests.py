@@ -1,6 +1,6 @@
 from nose.tools import istest, assert_equal
 
-from spamfoot.results import indented_list  
+from swanfoot.results import indented_list  
 
 
 @istest

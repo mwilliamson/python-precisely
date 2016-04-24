@@ -1,6 +1,6 @@
 from nose.tools import istest, assert_equal
 
-from spamfoot import assert_that, equal_to
+from swanfoot import assert_that, equal_to
 
 
 @istest

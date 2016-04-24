@@ -6,7 +6,7 @@ from nose.tools import istest
 if os.environ.get("HAMCREST"):
     from hamcrest import *
 else:
-    from spamfoot.hamcrest import *
+    from swanfoot.hamcrest import *
 
 
 User = collections.namedtuple("User", ["username", "email_address"]) 
