@@ -60,3 +60,20 @@ class HasProperties(object):
             "{0}: {1}".format(matcher._name, matcher._matcher.describe())
             for matcher in self._matchers
         ))
+
+
+def instance_of(type_):
+    return InstanceOf(type_)
+
+class InstanceOf(object):
+    def __init__(self, type_):
+        self._type = type_
+    
+    def match(self, actual):
+        if isinstance(actual, self._type):
+            return matched()
+        else:
+            return unmatched("had type {0}".format(type(actual).__name__))
+    
+    def describe(self):
+        return "instance of {0}".format(self._type.__name__)
