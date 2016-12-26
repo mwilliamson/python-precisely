@@ -4,8 +4,8 @@ from . import (
     anything as _anything,
     contains_exactly as contains_inanyorder,
     equal_to,
-    has_property,
-    has_properties,
+    has_attr as has_property,
+    has_attrs as has_properties,
     is_same_sequence as contains,
 )
 

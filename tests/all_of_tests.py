@@ -2,7 +2,7 @@ import collections
 
 from nose.tools import istest, assert_equal
 
-from precisely import all_of, has_property, equal_to
+from precisely import all_of, has_attr, equal_to
 from precisely.results import matched, unmatched
 
 
@@ -11,8 +11,8 @@ User = collections.namedtuple("User", ["username", "email_address"])
 @istest
 def matches_when_submatchers_all_match():
     matcher = all_of(
-        has_property("username", equal_to("bob")),
-        has_property("email_address", equal_to("bob@example.com")),
+        has_attr("username", equal_to("bob")),
+        has_attr("email_address", equal_to("bob@example.com")),
     )
     
     assert_equal(matched(), matcher.match(User("bob", "bob@example.com")))
@@ -21,12 +21,12 @@ def matches_when_submatchers_all_match():
 @istest
 def mismatches_when_submatcher_mismatches():
     matcher = all_of(
-        has_property("username", equal_to("bob")),
-        has_property("email_address", equal_to("bob@example.com")),
+        has_attr("username", equal_to("bob")),
+        has_attr("email_address", equal_to("bob@example.com")),
     )
     
     assert_equal(
-        unmatched("property username: missing"),
+        unmatched("attribute username: missing"),
         matcher.match("bobbity")
     )
 
@@ -34,12 +34,12 @@ def mismatches_when_submatcher_mismatches():
 @istest
 def description_contains_descriptions_of_submatchers():
     matcher = all_of(
-        has_property("username", equal_to("bob")),
-        has_property("email_address", equal_to("bob@example.com")),
+        has_attr("username", equal_to("bob")),
+        has_attr("email_address", equal_to("bob@example.com")),
     )
     
     assert_equal(
-        "all of:\n  * property username: 'bob'\n  * property email_address: 'bob@example.com'",
+        "all of:\n  * attribute username: 'bob'\n  * attribute email_address: 'bob@example.com'",
         matcher.describe()
     )
 

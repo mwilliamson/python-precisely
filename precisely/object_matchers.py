@@ -2,10 +2,10 @@ from .results import matched, unmatched, indented_list
 from .coercion import to_matcher
 
 
-def has_property(name, matcher):
-    return HasProperty(name, to_matcher(matcher))
+def has_attr(name, matcher):
+    return HasAttr(name, to_matcher(matcher))
 
-class HasProperty(object):
+class HasAttr(object):
     def __init__(self, name, matcher):
         self._name = name
         self._matcher = matcher
@@ -25,26 +25,26 @@ class HasProperty(object):
         return self._description(self._matcher.describe())
     
     def _description(self, value):
-        return "property {0}: {1}".format(self._name, value)
+        return "attribute {0}: {1}".format(self._name, value)
 
 
-def has_properties(*args, **kwargs):
-    properties = []
-    if properties is not None:
+def has_attrs(*args, **kwargs):
+    attrs = []
+    if attrs is not None:
         for arg in args:
             if isinstance(arg, dict):
-                properties += arg.items()
+                attrs += arg.items()
             else:
-                properties.append(arg)
+                attrs.append(arg)
     
-    properties += kwargs.items()
+    attrs += kwargs.items()
     
-    return HasProperties(properties)
+    return HasAttrs(attrs)
 
-class HasProperties(object):
+class HasAttrs(object):
     def __init__(self, matchers):
         self._matchers = [
-            has_property(name, matcher)
+            has_attr(name, matcher)
             for name, matcher in matchers
         ]
     
@@ -56,7 +56,7 @@ class HasProperties(object):
         return matched()
     
     def describe(self):
-        return "properties:{0}".format(indented_list(
+        return "attributes:{0}".format(indented_list(
             "{0}: {1}".format(matcher._name, matcher._matcher.describe())
             for matcher in self._matchers
         ))

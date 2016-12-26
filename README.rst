@@ -17,7 +17,7 @@ messages that this project produces, but feel free to judge for yourself:
 .. code:: python
 
     # Precisely
-    from precisely import assert_that, contains, has_properties
+    from precisely import assert_that, contains, has_attrs
 
     assert_that(
         [
@@ -25,20 +25,20 @@ messages that this project produces, but feel free to judge for yourself:
             User("jim", "bob@example.com"),
         ],
         is_same_sequence(
-            has_properties(username="bob", email_address="bob@example.com"),
-            has_properties(username="jim", email_address="jim@example.com"),
+            has_attrs(username="bob", email_address="bob@example.com"),
+            has_attrs(username="jim", email_address="jim@example.com"),
         )
     )
 
     # Expected: iterable containing in order:
-    #   0: properties:
+    #   0: attributes:
     #     * username: 'bob'
     #     * email_address: 'bob@example.com'
-    #   1: properties:
+    #   1: attributes:
     #     * username: 'jim'
     #     * email_address: 'jim@example.com'
     # but: element at index 0 mismatched:
-    #   * property email_address: was 'jim@example.com'
+    #   * attribute email_address: was 'jim@example.com'
 
     # Hamcrest
     from hamcrest import assert_that, contains, has_properties
