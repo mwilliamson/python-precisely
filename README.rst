@@ -17,7 +17,7 @@ messages that this project produces, but feel free to judge for yourself:
 .. code:: python
 
     # Precisely
-    from precisely import assert_that, contains, has_attrs
+    from precisely import assert_that, is_same_sequence, has_attrs
 
     assert_that(
         [
