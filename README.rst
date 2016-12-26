@@ -52,6 +52,52 @@ Installation
 
     pip install precisely
 
+API
+---
+
+Use ``assert_that(value, matcher)`` to assert that a value satisfies a matcher.
+
+Many matchers are composed of other matchers.
+If they are given a value instead of a matcher,
+then that value is wrapped in ``equal_to()``.
+For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attr(name=equal_to("bob"))``.
+
+* ``equal_to(value)``: matches a value if it is equal to ``value`` using ``==``.
+
+* ``has_attrs(**kwargs)``: matches a value if it has the specified attributes.
+  For instance:
+  
+  .. code:: python
+  
+      assert_that(result, has_attrs(id=is_a(int), name="bob"))
+
+* ``contains_exactly(*args)``: matches an iterable if it has the same elements in any order.
+  For instance:
+  
+  .. code:: python
+  
+      assert_that(results, contains_exactly("a", "b"))
+      # Matches ["a", "b"] and ["b", "a"],
+      # but not ["a", "a", "b"] nor ["a"] nor ["a", "b", "c"]
+
+* ``is_same_sequence(*args)``: matches an iterable if it has the same elements in the same order.
+  For instance:
+  
+      assert_that(results, is_same_sequence("a", "b"))
+      # Matches ["a", "b"] but not ["b", "a"]
+
+* ``anything``: matches all values.
+
+* ``instance_of(type)``: matches any value where ``isinstance(value, type))``.
+
+* ``all_of(*matchers)``: matchers a value if all sub-matchers match.
+  For instance:
+  
+      assert_that(results, all_of(
+          is_instance(User),
+          has_attrs(name="bob"),
+      ))
+
 Alternatives
 ------------
 
