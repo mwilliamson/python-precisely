@@ -60,7 +60,7 @@ Use ``assert_that(value, matcher)`` to assert that a value satisfies a matcher.
 Many matchers are composed of other matchers.
 If they are given a value instead of a matcher,
 then that value is wrapped in ``equal_to()``.
-For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attr(name=equal_to("bob"))``.
+For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_to("bob"))``.
 
 * ``equal_to(value)``: matches a value if it is equal to ``value`` using ``==``.
 
