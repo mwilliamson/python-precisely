@@ -1,7 +1,7 @@
 from nose.tools import istest, assert_equal
 
-from swanfoot import instance_of
-from swanfoot.results import matched, unmatched
+from precisely import instance_of
+from precisely.results import matched, unmatched
 
 
 @istest

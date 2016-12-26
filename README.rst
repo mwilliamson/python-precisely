@@ -1,4 +1,4 @@
-Swanfoot: matcher library for Python
+Precisely: matcher library for Python
 ====================================
 
 Installation
@@ -6,7 +6,7 @@ Installation
 
 ::
 
-    pip install swanfoot
+    pip install precisely
 
 Alternatives
 ------------
@@ -16,8 +16,8 @@ messages that this project produces, but feel free to judge for yourself:
 
 .. code:: python
 
-    # Swanfoot
-    from swanfoot import assert_that, contains, has_properties
+    # Precisely
+    from precisely import assert_that, contains, has_properties
 
     assert_that(
         [

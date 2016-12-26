@@ -2,8 +2,8 @@ import collections
 
 from nose.tools import istest, assert_equal
 
-from swanfoot import has_property, equal_to
-from swanfoot.results import matched, unmatched
+from precisely import has_property, equal_to
+from precisely.results import matched, unmatched
 
 
 User = collections.namedtuple("User", ["username"])

@@ -2,8 +2,8 @@ import collections
 
 from nose.tools import istest, assert_equal
 
-from swanfoot import contains_exactly, equal_to
-from swanfoot.results import matched, unmatched
+from precisely import contains_exactly, equal_to
+from precisely.results import matched, unmatched
 
 
 @istest
