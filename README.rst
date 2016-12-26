@@ -1,5 +1,49 @@
-Precisely: matcher library for Python
-=====================================
+Precisely: better assertions for Python tests
+=============================================
+
+Precisely allows you to write precise assertions so you only test the behaviour you're really interested in.
+This makes it clearer to the reader what the expected behaviour is,
+and makes tests less brittle.
+This also allows better error messages to be generated when assertions fail.
+Inspired by Hamcrest_.
+
+.. _Hamcrest: http://hamcrest.org
+
+For instance, suppose we want to make sure that a ``unique`` function removes duplicates from a list.
+We might write a test like so:
+
+.. code:: python
+
+    from precisely import assert_that, contains_exactly
+    
+    def test_unique_removes_duplicates():
+        result = unique(["a", "a", "b", "a", "b"])
+        assert_that(result, contains_exactly("a", "b"))
+
+The assertion will pass so long as ``result`` contains ``"a"`` and ``"b"`` in any order,
+but no other items.
+Unlike, say, ``assert result == ["a", "b"]``, our assertion ignores the ordering of elements.
+This is useful when:
+
+* the ordering of the result is non-determistic, such as when using ``set``.
+
+* the ordering isn't specified in the contract of ``unique``.
+  If we assert a particular ordering, then we'd be testing the implementation rather than the contract.
+
+* the ordering is specified in the contract of ``unique``,
+  but the ordering is tested in a separate test case.
+
+When the assertion fails,
+rather than just stating the two values weren't equal,
+the error message will describe the failure in more detail.
+For instance, if unique has the value ``["a", "a", "b"]``,
+we'd get the failure message::
+
+    Expected: iterable containing in any order:
+      * 'a'
+      * 'b'
+    but: had extra elements:
+      * 'a'
 
 Installation
 ------------
