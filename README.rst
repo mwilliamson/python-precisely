@@ -1,5 +1,5 @@
 Precisely: matcher library for Python
-====================================
+=====================================
 
 Installation
 ------------
