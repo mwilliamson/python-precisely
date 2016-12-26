@@ -83,6 +83,8 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attr(name=equal_t
 * ``is_same_sequence(*args)``: matches an iterable if it has the same elements in the same order.
   For instance:
   
+  .. code:: python
+  
       assert_that(results, is_same_sequence("a", "b"))
       # Matches ["a", "b"] but not ["b", "a"]
 
@@ -92,6 +94,8 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attr(name=equal_t
 
 * ``all_of(*matchers)``: matchers a value if all sub-matchers match.
   For instance:
+  
+  .. code:: python
   
       assert_that(results, all_of(
           is_instance(User),
