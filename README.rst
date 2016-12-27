@@ -76,7 +76,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   
   .. code:: python
   
-      assert_that(results, contains_exactly("a", "b"))
+      assert_that(result, contains_exactly("a", "b"))
       # Matches ["a", "b"] and ["b", "a"],
       # but not ["a", "a", "b"] nor ["a"] nor ["a", "b", "c"]
 
@@ -85,7 +85,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   
   .. code:: python
   
-      assert_that(results, is_same_sequence("a", "b"))
+      assert_that(result, is_same_sequence("a", "b"))
       # Matches ["a", "b"] but not ["b", "a"]
 
 * ``anything``: matches all values.
@@ -97,7 +97,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   
   .. code:: python
   
-      assert_that(results, all_of(
+      assert_that(result, all_of(
           is_instance(User),
           has_attrs(name="bob"),
       ))
