@@ -1,3 +1,4 @@
+from .base import Matcher
 from .results import matched, unmatched, indented_list
 from .coercion import to_matcher
 
@@ -5,7 +6,7 @@ from .coercion import to_matcher
 def has_attr(name, matcher):
     return HasAttr(name, to_matcher(matcher))
 
-class HasAttr(object):
+class HasAttr(Matcher):
     def __init__(self, name, matcher):
         self._name = name
         self._matcher = matcher
@@ -41,7 +42,7 @@ def has_attrs(*args, **kwargs):
     
     return HasAttrs(attrs)
 
-class HasAttrs(object):
+class HasAttrs(Matcher):
     def __init__(self, matchers):
         self._matchers = [
             has_attr(name, matcher)
@@ -65,7 +66,7 @@ class HasAttrs(object):
 def instance_of(type_):
     return InstanceOf(type_)
 
-class InstanceOf(object):
+class InstanceOf(Matcher):
     def __init__(self, type_):
         self._type = type_
     

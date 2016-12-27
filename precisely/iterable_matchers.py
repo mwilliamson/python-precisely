@@ -3,6 +3,7 @@ try:
 except ImportError:
     from itertools import izip_longest as zip_longest
 
+from .base import Matcher
 from .results import matched, unmatched, indented_list, indexed_indented_list
 from .coercion import to_matcher
 
@@ -10,7 +11,7 @@ from .coercion import to_matcher
 def contains_exactly(*matchers):
     return ContainsExactlyMatcher([to_matcher(matcher) for matcher in matchers])
 
-class ContainsExactlyMatcher(object):
+class ContainsExactlyMatcher(Matcher):
     def __init__(self, matchers):
         self._matchers = matchers
     
@@ -68,7 +69,7 @@ def is_same_sequence(*matchers):
     return IsSameSequenceMatcher([to_matcher(matcher) for matcher in matchers])
 
 
-class IsSameSequenceMatcher(object):
+class IsSameSequenceMatcher(Matcher):
     _missing = object()
     
     def __init__(self, matchers):

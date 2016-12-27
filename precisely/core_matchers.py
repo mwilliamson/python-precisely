@@ -1,3 +1,4 @@
+from .base import Matcher
 from .results import matched, unmatched, indented_list
 
 
@@ -5,7 +6,7 @@ def equal_to(value):
     return EqualToMatcher(value)
 
 
-class EqualToMatcher(object):
+class EqualToMatcher(Matcher):
     def __init__(self, value):
         self._value = value
     
@@ -19,7 +20,7 @@ class EqualToMatcher(object):
         return repr(self._value)
 
 
-class AnyThingMatcher(object):
+class AnyThingMatcher(Matcher):
     def match(self, actual):
         return matched()
     
@@ -33,7 +34,7 @@ anything = AnyThingMatcher()
 def all_of(*matchers):
     return AllOfMatcher(matchers)
 
-class AllOfMatcher(object):
+class AllOfMatcher(Matcher):
     def __init__(self, matchers):
         self._matchers = matchers
     

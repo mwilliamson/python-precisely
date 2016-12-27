@@ -1,3 +1,4 @@
+from .base import Matcher
 from .results import matched, unmatched
 from .coercion import to_matcher
 
@@ -5,7 +6,7 @@ from .coercion import to_matcher
 def has_feature(name, extract, matcher):
     return HasFeatureMatcher(name, extract, to_matcher(matcher))
 
-class HasFeatureMatcher(object):
+class HasFeatureMatcher(Matcher):
     def __init__(self, name, extract, matcher):
         self._name = name
         self._extract = extract
