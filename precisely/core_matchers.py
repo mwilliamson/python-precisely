@@ -52,3 +52,30 @@ class AllOfMatcher(Matcher):
             for matcher in self._matchers
         ))
 
+
+def any_of(*matchers):
+    return AnyOfMatcher(matchers)
+
+class AnyOfMatcher(Matcher):
+    def __init__(self, matchers):
+        self._matchers = matchers
+    
+    def match(self, actual):
+        results = []
+        for matcher in self._matchers:
+            result = matcher.match(actual)
+            if result.is_match:
+                return result
+            else:
+                results.append(result)
+        
+        return unmatched("did not match any of:{0}".format(indented_list(
+            "{0} [{1}]".format(matcher.describe(), result.explanation)
+            for result, matcher in zip(results, self._matchers)
+        )))
+    
+    def describe(self):
+        return "any of:{0}".format(indented_list(
+            matcher.describe()
+            for matcher in self._matchers
+        ))

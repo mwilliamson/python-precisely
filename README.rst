@@ -102,6 +102,16 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
           has_attrs(name="bob"),
       ))
 
+* ``all_of(*matchers)``: matchers a value if any sub-matcher matches.
+  For instance:
+  
+  .. code:: python
+  
+      assert_that(result, any_of(
+          equal_to("x=1, y=2"),
+          equal_to("y=2, x=1"),
+      ))
+
 * ``has_feature(name, extract, matcher)``: matches ``value`` if ``extract(value)`` matches ``matcher``.
   For instance:
   
