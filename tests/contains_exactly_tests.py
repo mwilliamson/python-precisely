@@ -1,5 +1,3 @@
-import collections
-
 from nose.tools import istest, assert_equal
 
 from precisely import contains_exactly, equal_to

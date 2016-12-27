@@ -32,18 +32,18 @@ class ContainsExactlyMatcher(object):
 class _Matches(object):
     def __init__(self, values):
         self._values = values
-        self._matched = [False] * len(values)
+        self._is_matched = [False] * len(values)
     
     def match(self, matcher):
         mismatches = []
-        for index, (matched, value) in enumerate(zip(self._matched, self._values)):
-            if matched:
+        for index, (is_matched, value) in enumerate(zip(self._is_matched, self._values)):
+            if is_matched:
                 result = unmatched("already matched")
             else:
                 result = matcher.match(value)
                 
             if result.is_match:
-                self._matched[index] = True
+                self._is_matched[index] = True
                 return result
             else:
                 mismatches.append(result)
@@ -54,13 +54,13 @@ class _Matches(object):
         ))
     
     def match_remaining(self):
-        if all(self._matched):
+        if all(self._is_matched):
             return matched()
         else:
             return unmatched("had extra elements:{0}".format(indented_list(
                 repr(value)
-                for matched, value in zip(self._matched, self._values)
-                if not matched
+                for is_matched, value in zip(self._is_matched, self._values)
+                if not is_matched
             )))
 
 

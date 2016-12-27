@@ -1,4 +1,4 @@
-from .results import matched, unmatched, indented_list
+from .results import matched, unmatched
 from .coercion import to_matcher
 
 
