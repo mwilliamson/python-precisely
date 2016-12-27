@@ -102,6 +102,22 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
           has_attrs(name="bob"),
       ))
 
+* ``has_feature(name, extract, matcher)``: matches ``value`` if ``extract(value)`` matches ``matcher``.
+  For instance:
+  
+  .. code:: python
+  
+      assert_that(result, has_feature("len", len, equal_to(2)))
+  
+  For clarity, it often helps to extract the use of ``has_feature`` into its own function:
+  
+  .. code:: python
+  
+      def has_len(matcher):
+          return has_feature("len", len, matcher)
+      
+      assert_that(result, has_len(equal_to(2)))
+
 Alternatives
 ------------
 
