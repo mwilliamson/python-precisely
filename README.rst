@@ -80,12 +80,12 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
       # Matches ["a", "b"] and ["b", "a"],
       # but not ["a", "a", "b"] nor ["a"] nor ["a", "b", "c"]
 
-* ``is_same_sequence(*args)``: matches an iterable if it has the same elements in the same order.
+* ``is_sequence(*args)``: matches an iterable if it has the same elements in the same order.
   For instance:
   
   .. code:: python
   
-      assert_that(result, is_same_sequence("a", "b"))
+      assert_that(result, is_sequence("a", "b"))
       # Matches ["a", "b"] but not ["b", "a"]
 
 * ``anything``: matches all values.
@@ -137,14 +137,14 @@ messages that this project produces, but feel free to judge for yourself:
 .. code:: python
 
     # Precisely
-    from precisely import assert_that, is_same_sequence, has_attrs
+    from precisely import assert_that, is_sequence, has_attrs
 
     assert_that(
         [
             User("bob", "jim@example.com"),
             User("jim", "bob@example.com"),
         ],
-        is_same_sequence(
+        is_sequence(
             has_attrs(username="bob", email_address="bob@example.com"),
             has_attrs(username="jim", email_address="jim@example.com"),
         )

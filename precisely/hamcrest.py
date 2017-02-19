@@ -6,7 +6,7 @@ from . import (
     equal_to,
     has_attr as has_property,
     has_attrs as has_properties,
-    is_same_sequence as contains,
+    is_sequence as contains,
 )
 
 

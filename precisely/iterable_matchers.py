@@ -65,11 +65,11 @@ class _Matches(object):
             )))
 
 
-def is_same_sequence(*matchers):
-    return IsSameSequenceMatcher([to_matcher(matcher) for matcher in matchers])
+def is_sequence(*matchers):
+    return IsSequenceMatcher([to_matcher(matcher) for matcher in matchers])
 
 
-class IsSameSequenceMatcher(Matcher):
+class IsSequenceMatcher(Matcher):
     _missing = object()
     
     def __init__(self, matchers):
