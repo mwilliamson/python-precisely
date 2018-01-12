@@ -1,9 +1,13 @@
 from .base import Matcher
+from .coercion import to_matcher
 from .results import matched, unmatched, indented_list
 
 
 def is_mapping(matchers):
-    return IsMappingMatcher(matchers)
+    return IsMappingMatcher(dict(
+        (key, to_matcher(matcher))
+        for key, matcher in matchers.items()
+    ))
 
 
 class IsMappingMatcher(Matcher):
