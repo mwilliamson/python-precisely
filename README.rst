@@ -88,6 +88,17 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
       assert_that(result, is_sequence("a", "b"))
       # Matches ["a", "b"] but not ["b", "a"]
 
+* ``is_mapping(**matchers)``: matches a mapping, such as a ``dict``, if it has the same keys with matching values.
+  An error will be raised if the mapping is missing any keys, or has any extra keys.
+  For instance:
+
+  .. code:: python
+
+      assert_that(result, is_mapping({
+          "a": equal_to(1),
+          "b": equal_to(4),
+      }))
+
 * ``anything``: matches all values.
 
 * ``instance_of(type)``: matches any value where ``isinstance(value, type))``.
@@ -118,6 +129,18 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   .. code:: python
 
       assert_that(result, not_(equal_to("hello")))
+
+* ``starts_with(prefix)``: matches a string if it starts with ``prefix``.
+
+* ``contains_string(substring)``: matches a string if it contains ``substring``.
+
+* ``greater_than(value)``: matches values greater than ``value``.
+
+* ``greater_than_or_equal_to(value)``: matches values greater than or equal to ``value``.
+
+* ``less_than(value)``: matches values less than ``value``.
+
+* ``less_than_or_equal_to(value)``: matches values less than or equal to ``value``.
 
 * ``has_feature(name, extract, matcher)``: matches ``value`` if ``extract(value)`` matches ``matcher``.
   For instance:
