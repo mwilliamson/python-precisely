@@ -112,6 +112,13 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
           equal_to("y=2, x=1"),
       ))
 
+* ``not_(matcher)``: negates a matcher.
+  For instance:
+
+  .. code:: python
+
+      assert_that(result, not_(equal_to("hello")))
+
 * ``has_feature(name, extract, matcher)``: matches ``value`` if ``extract(value)`` matches ``matcher``.
   For instance:
 
