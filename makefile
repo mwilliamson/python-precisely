@@ -8,7 +8,7 @@ test-all:
 	tox
 
 upload: test-all
-	python setup.py sdist upload
+	python setup.py sdist bdist_wheel upload
 	make clean
 	
 register:
