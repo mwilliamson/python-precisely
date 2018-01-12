@@ -11,10 +11,11 @@ from .coercion import to_matcher
 def contains_exactly(*matchers):
     return ContainsExactlyMatcher([to_matcher(matcher) for matcher in matchers])
 
+
 class ContainsExactlyMatcher(Matcher):
     def __init__(self, matchers):
         self._matchers = matchers
-    
+
     def match(self, actual):
         matches = _Matches(list(actual))
         for matcher in self._matchers:
@@ -22,9 +23,32 @@ class ContainsExactlyMatcher(Matcher):
             if not result.is_match:
                 return result
         return matches.match_remaining()
-    
+
     def describe(self):
         return "iterable containing in any order:{0}".format(indented_list(
+            matcher.describe()
+            for matcher in self._matchers
+        ))
+
+
+def includes(*matchers):
+    return IncludesMatcher([to_matcher(matcher) for matcher in matchers])
+
+
+class IncludesMatcher(Matcher):
+    def __init__(self, matchers):
+        self._matchers = matchers
+
+    def match(self, actual):
+        matches = _Matches(list(actual))
+        for matcher in self._matchers:
+            result = matches.match(matcher)
+            if not result.is_match:
+                return result
+        return matched()
+
+    def describe(self):
+        return "iterable including elements:{0}".format(indented_list(
             matcher.describe()
             for matcher in self._matchers
         ))
@@ -34,7 +58,7 @@ class _Matches(object):
     def __init__(self, values):
         self._values = values
         self._is_matched = [False] * len(values)
-    
+
     def match(self, matcher):
         mismatches = []
         for index, (is_matched, value) in enumerate(zip(self._is_matched, self._values)):
@@ -42,18 +66,18 @@ class _Matches(object):
                 result = unmatched("already matched")
             else:
                 result = matcher.match(value)
-                
+
             if result.is_match:
                 self._is_matched[index] = True
                 return result
             else:
                 mismatches.append(result)
-        
+
         return unmatched("was missing element:{0}\nmismatched elements:{1}".format(
             indented_list([matcher.describe()]),
             indented_list("{0}: {1}".format(repr(value), mismatch.explanation) for value, mismatch in zip(self._values, mismatches)),
         ))
-    
+
     def match_remaining(self):
         if all(self._is_matched):
             return matched()
@@ -71,10 +95,10 @@ def is_sequence(*matchers):
 
 class IsSequenceMatcher(Matcher):
     _missing = object()
-    
+
     def __init__(self, matchers):
         self._matchers = matchers
-    
+
     def match(self, actual):
         values = list(actual)
         extra = []
@@ -87,12 +111,12 @@ class IsSequenceMatcher(Matcher):
                 result = matcher.match(value)
                 if not result.is_match:
                     return unmatched("element at index {0} mismatched:{1}".format(index, indented_list([result.explanation])))
-        
+
         if extra:
             return unmatched("had extra elements:{0}".format(indented_list(map(repr, extra))))
         else:
             return matched()
-    
+
     def describe(self):
         return "iterable containing in order:{0}".format(indexed_indented_list(
             matcher.describe()
