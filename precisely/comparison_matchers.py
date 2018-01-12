@@ -3,6 +3,10 @@ import operator
 from .results import matched, unmatched
 
 
+def contains_string(value):
+    return ComparisonMatcher(operator.contains, "contains the string", value)
+
+
 def greater_than(value):
     return ComparisonMatcher(operator.gt, "greater than", value)
 
