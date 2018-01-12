@@ -15,7 +15,7 @@ We might write a test like so:
 .. code:: python
 
     from precisely import assert_that, contains_exactly
-    
+
     def test_unique_removes_duplicates():
         result = unique(["a", "a", "b", "a", "b"])
         assert_that(result, contains_exactly("a", "b"))
@@ -66,25 +66,25 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``has_attrs(**kwargs)``: matches a value if it has the specified attributes.
   For instance:
-  
+
   .. code:: python
-  
+
       assert_that(result, has_attrs(id=is_a(int), name="bob"))
 
 * ``contains_exactly(*args)``: matches an iterable if it has the same elements in any order.
   For instance:
-  
+
   .. code:: python
-  
+
       assert_that(result, contains_exactly("a", "b"))
       # Matches ["a", "b"] and ["b", "a"],
       # but not ["a", "a", "b"] nor ["a"] nor ["a", "b", "c"]
 
 * ``is_sequence(*args)``: matches an iterable if it has the same elements in the same order.
   For instance:
-  
+
   .. code:: python
-  
+
       assert_that(result, is_sequence("a", "b"))
       # Matches ["a", "b"] but not ["b", "a"]
 
@@ -94,19 +94,19 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``all_of(*matchers)``: matchers a value if all sub-matchers match.
   For instance:
-  
+
   .. code:: python
-  
+
       assert_that(result, all_of(
           is_instance(User),
           has_attrs(name="bob"),
       ))
 
-* ``all_of(*matchers)``: matchers a value if any sub-matcher matches.
+* ``any_of(*matchers)``: matchers a value if any sub-matcher matches.
   For instance:
-  
+
   .. code:: python
-  
+
       assert_that(result, any_of(
           equal_to("x=1, y=2"),
           equal_to("y=2, x=1"),
@@ -114,18 +114,18 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``has_feature(name, extract, matcher)``: matches ``value`` if ``extract(value)`` matches ``matcher``.
   For instance:
-  
+
   .. code:: python
-  
+
       assert_that(result, has_feature("len", len, equal_to(2)))
-  
+
   For clarity, it often helps to extract the use of ``has_feature`` into its own function:
-  
+
   .. code:: python
-  
+
       def has_len(matcher):
           return has_feature("len", len, matcher)
-      
+
       assert_that(result, has_len(equal_to(2)))
 
 Alternatives
