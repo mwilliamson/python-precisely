@@ -7,6 +7,10 @@ def greater_than(value):
     return ComparisonMatcher(operator.gt, "greater than", value)
 
 
+def less_than(value):
+    return ComparisonMatcher(operator.lt, "less than", value)
+
+
 def _comparison_matcher(operator, operator_description, value):
     return ComparisonMatcher(operator, operator_description, value)
 
