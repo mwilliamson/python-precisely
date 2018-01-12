@@ -19,6 +19,10 @@ def less_than_or_equal_to(value):
     return ComparisonMatcher(operator.le, "less than or equal to", value)
 
 
+def starts_with(value):
+    return ComparisonMatcher(lambda actual, prefix: actual.startswith(prefix), "starts with", value)
+
+
 def _comparison_matcher(operator, operator_description, value):
     return ComparisonMatcher(operator, operator_description, value)
 
