@@ -15,6 +15,10 @@ def less_than(value):
     return ComparisonMatcher(operator.lt, "less than", value)
 
 
+def less_than_or_equal_to(value):
+    return ComparisonMatcher(operator.le, "less than or equal to", value)
+
+
 def _comparison_matcher(operator, operator_description, value):
     return ComparisonMatcher(operator, operator_description, value)
 
