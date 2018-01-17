@@ -57,10 +57,11 @@ class IsCloseToMatcher(object):
         self._delta = delta
 
     def match(self, actual):
-        if self._value - self._delta <= actual <= self._value + self._delta:
-            return matched()
+        difference = abs(self._value - actual)
+        if difference > self._delta:
+            return unmatched("was {0!r} ({1!r} away from {2!r})".format(actual, difference, self._value))
         else:
-            return unmatched("was {0!r} ({1!r} away from {2!r})".format(actual, abs(self._value - actual), self._value))
+            return matched()
 
     def describe(self):
         return "close to {0!r} +/- {1!r}".format(self._value, self._delta)
