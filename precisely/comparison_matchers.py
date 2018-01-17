@@ -1,3 +1,4 @@
+from math import fabs
 import operator
 
 from .results import matched, unmatched
@@ -45,3 +46,22 @@ class ComparisonMatcher(object):
 
     def describe(self):
         return "{0} {1!r}".format(self._operator_description, self._value)
+
+
+def close_to(value, delta):
+    return IsCloseToMatcher(value, delta)
+
+
+class IsCloseToMatcher(object):
+    def __init__(self, value, delta):
+        self._value = value
+        self._delta = delta
+
+    def match(self, actual):
+        if fabs(actual - self._value) <= self._delta:
+            return matched()
+        else:
+            return unmatched("was {0!r}".format(actual))
+
+    def describe(self):
+        return "close to {0!r} +/- {1!r}".format(self._value, self._delta)
