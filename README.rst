@@ -142,6 +142,8 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``less_than_or_equal_to(value)``: matches values less than or equal to ``value``.
 
+* ``close_to(value, delta)``: matches values close to ``value`` within a tolerance of +/- ``delta``.
+
 * ``has_feature(name, extract, matcher)``: matches ``value`` if ``extract(value)`` matches ``matcher``.
   For instance:
 
