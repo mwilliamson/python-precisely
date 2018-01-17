@@ -1,4 +1,3 @@
-from math import fabs
 import operator
 
 from .results import matched, unmatched
@@ -58,7 +57,7 @@ class IsCloseToMatcher(object):
         self._delta = delta
 
     def match(self, actual):
-        if fabs(actual - self._value) <= self._delta:
+        if actual - self._delta <= self._value <= actual + self._delta:
             return matched()
         else:
             return unmatched("was {0!r}".format(actual))
