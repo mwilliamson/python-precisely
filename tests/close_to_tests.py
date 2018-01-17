@@ -13,7 +13,7 @@ def close_to_matches_when_actual_is_close_to_value_plus_delta():
     assert_equal(matched(), matcher.match(42))
     assert_equal(matched(), matcher.match(41.5))
     assert_equal(matched(), matcher.match(41))
-    assert_equal(unmatched("was 40"), matcher.match(40))
+    assert_equal(unmatched("was 40 (differs from 42 by more than 1)"), matcher.match(40))
 
 
 @istest
@@ -22,7 +22,11 @@ def close_to_matches_datetime_values():
     assert_equal(matched(), matcher.match(datetime(2018, 1, 18)))
     assert_equal(matched(), matcher.match(datetime(2018, 1, 17)))
     assert_equal(matched(), matcher.match(datetime(2018, 1, 16)))
-    assert_equal(unmatched("was datetime.datetime(2018, 1, 15, 0, 0)"), matcher.match(datetime(2018, 1, 15)))
+    assert_equal(unmatched(
+        "was datetime.datetime(2018, 1, 15, 0, 0) (differs from datetime.datetime(2018, 1, 17, 0, 0) by more than datetime.timedelta(1))"
+    ),
+         matcher.match(datetime(2018, 1, 15))
+    )
 
 
 @istest
