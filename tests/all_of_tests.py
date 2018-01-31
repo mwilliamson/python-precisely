@@ -26,7 +26,7 @@ def mismatches_when_submatcher_mismatches():
     )
     
     assert_equal(
-        unmatched("attribute username: missing"),
+        unmatched("was missing attribute username"),
         matcher.match("bobbity")
     )
 
@@ -39,7 +39,7 @@ def description_contains_descriptions_of_submatchers():
     )
     
     assert_equal(
-        "all of:\n  * attribute username: 'bob'\n  * attribute email_address: 'bob@example.com'",
+        "all of:\n  * object with attribute username: 'bob'\n  * object with attribute email_address: 'bob@example.com'",
         matcher.describe()
     )
 

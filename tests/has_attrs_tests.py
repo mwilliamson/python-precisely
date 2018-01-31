@@ -26,7 +26,7 @@ def mismatches_when_property_is_missing():
     )
     
     assert_equal(
-        unmatched("attribute username: missing"),
+        unmatched("was missing attribute username"),
         matcher.match("bobbity")
     )
 
@@ -39,7 +39,7 @@ def explanation_of_mismatch_contains_mismatch_of_property():
     )
     
     assert_equal(
-        unmatched("attribute email_address: was 'bobbity@example.com'"),
+        unmatched("attribute email_address was 'bobbity@example.com'"),
         matcher.match(User("bob", "bobbity@example.com"))
     )
 
@@ -49,7 +49,7 @@ def submatcher_is_coerced_to_matcher():
     matcher = has_attrs(username="bob")
     
     assert_equal(
-        unmatched("attribute username: was 'bobbity'"),
+        unmatched("attribute username was 'bobbity'"),
         matcher.match(User("bobbity", None))
     )
 
@@ -61,7 +61,7 @@ def description_contains_descriptions_of_properties():
     )
     
     assert_equal(
-        "attributes:\n  * username: 'bob'",
+        "object with attributes:\n  * username: 'bob'",
         matcher.describe()
     )
 
@@ -74,7 +74,7 @@ def can_pass_properties_as_list_of_tuples():
     )
     
     assert_equal(
-        "attributes:\n  * username: 'bob'\n  * email_address: 'bob@example.com'",
+        "object with attributes:\n  * username: 'bob'\n  * email_address: 'bob@example.com'",
         matcher.describe()
     )
 
@@ -86,6 +86,6 @@ def can_pass_properties_as_dictionary():
     })
     
     assert_equal(
-        "attributes:\n  * username: 'bob'",
+        "object with attributes:\n  * username: 'bob'",
         matcher.describe()
     )

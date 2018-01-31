@@ -13,20 +13,17 @@ class HasAttr(Matcher):
     
     def match(self, actual):
         if not hasattr(actual, self._name):
-            return unmatched(self._description("missing"))
+            return unmatched("was missing attribute {0}".format(self._name))
         else:
             actual_property = getattr(actual, self._name)
             property_result = self._matcher.match(actual_property)
             if property_result.is_match:
                 return matched()
             else:
-                return unmatched(self._description(property_result.explanation))
+                return unmatched("attribute {0} {1}".format(self._name, property_result.explanation))
     
     def describe(self):
-        return self._description(self._matcher.describe())
-    
-    def _description(self, value):
-        return "attribute {0}: {1}".format(self._name, value)
+        return "object with attribute {0}: {1}".format(self._name, self._matcher.describe())
 
 
 def has_attrs(*args, **kwargs):
@@ -57,7 +54,7 @@ class HasAttrs(Matcher):
         return matched()
     
     def describe(self):
-        return "attributes:{0}".format(indented_list(
+        return "object with attributes:{0}".format(indented_list(
             "{0}: {1}".format(matcher._name, matcher._matcher.describe())
             for matcher in self._matchers
         ))

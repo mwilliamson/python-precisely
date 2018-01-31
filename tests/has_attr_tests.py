@@ -17,7 +17,7 @@ def matches_when_property_has_correct_value():
 @istest
 def mismatches_when_property_is_missing():
     assert_equal(
-        unmatched("attribute username: missing"),
+        unmatched("was missing attribute username"),
         has_attr("username", equal_to("bob")).match("bobbity")
     )
 
@@ -25,7 +25,7 @@ def mismatches_when_property_is_missing():
 @istest
 def explanation_of_mismatch_contains_mismatch_of_property():
     assert_equal(
-        unmatched("attribute username: was 'bobbity'"),
+        unmatched("attribute username was 'bobbity'"),
         has_attr("username", equal_to("bob")).match(User("bobbity"))
     )
 
@@ -33,7 +33,7 @@ def explanation_of_mismatch_contains_mismatch_of_property():
 @istest
 def submatcher_is_coerced_to_matcher():
     assert_equal(
-        unmatched("attribute username: was 'bobbity'"),
+        unmatched("attribute username was 'bobbity'"),
         has_attr("username", "bob").match(User("bobbity"))
     )
 
@@ -41,7 +41,7 @@ def submatcher_is_coerced_to_matcher():
 @istest
 def description_contains_description_of_property():
     assert_equal(
-        "attribute username: 'bob'",
+        "object with attribute username: 'bob'",
         has_attr("username", equal_to("bob")).describe()
     )
 

@@ -52,7 +52,7 @@ def description_contains_descriptions_of_submatchers():
     )
     
     assert_equal(
-        "any of:\n  * attribute username: 'bob'\n  * attribute email_address: 'bob@example.com'",
+        "any of:\n  * object with attribute username: 'bob'\n  * object with attribute email_address: 'bob@example.com'",
         matcher.describe()
     )
 
