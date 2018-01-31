@@ -32,7 +32,7 @@ def matches_when_any_submatchers_match():
 
 
 @istest
-def mismathes_when_no_submatchers_match():
+def mismatches_when_no_submatchers_match():
     matcher = any_of(
         equal_to("bob"),
         equal_to("jim"),
