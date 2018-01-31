@@ -31,7 +31,7 @@ class ContainsExactlyMatcher(Matcher):
         )
 
         if len(self._matchers) == 0:
-            return "empty iterable"
+            return _empty_iterable_description
         elif len(self._matchers) == 1:
             return "iterable containing 1 element:{0}".format(
                 elements_description,
@@ -130,7 +130,13 @@ class IsSequenceMatcher(Matcher):
             return matched()
 
     def describe(self):
-        return "iterable containing in order:{0}".format(indexed_indented_list(
-            matcher.describe()
-            for matcher in self._matchers
-        ))
+        if len(self._matchers) == 0:
+            return _empty_iterable_description
+        else:
+            return "iterable containing in order:{0}".format(indexed_indented_list(
+                matcher.describe()
+                for matcher in self._matchers
+            ))
+
+
+_empty_iterable_description = "empty iterable"

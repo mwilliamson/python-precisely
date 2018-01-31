@@ -42,6 +42,16 @@ def mismatches_when_contains_extra_item():
 
 
 @istest
+def when_there_are_zero_submatchers_then_description_is_of_empty_iterable():
+    matcher = is_sequence()
+
+    assert_equal(
+        "empty iterable",
+        matcher.describe()
+    )
+
+
+@istest
 def description_contains_descriptions_of_submatchers():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
