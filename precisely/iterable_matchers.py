@@ -25,10 +25,22 @@ class ContainsExactlyMatcher(Matcher):
         return matches.match_remaining()
 
     def describe(self):
-        return "iterable containing in any order:{0}".format(indented_list(
+        elements_description = indented_list(
             matcher.describe()
             for matcher in self._matchers
-        ))
+        )
+
+        if len(self._matchers) == 0:
+            return "empty iterable"
+        elif len(self._matchers) == 1:
+            return "iterable containing 1 element:{0}".format(
+                elements_description,
+            )
+        else:
+            return "iterable containing these {0} elements in any order:{1}".format(
+                len(self._matchers),
+                elements_description,
+            )
 
 
 def includes(*matchers):

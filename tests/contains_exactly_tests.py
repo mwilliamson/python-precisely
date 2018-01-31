@@ -42,11 +42,28 @@ def mismatches_when_contains_extra_item():
 
 
 @istest
+def description_is_of_empty_iterable_when_there_are_zero_submatchers():
+    matcher = contains_exactly()
+
+    assert_equal("empty iterable", matcher.describe())
+
+
+@istest
+def description_uses_singular_when_there_is_one_submatcher():
+    matcher = contains_exactly(equal_to("apple"))
+
+    assert_equal(
+        "iterable containing 1 element:\n  * 'apple'",
+        matcher.describe()
+    )
+
+
+@istest
 def description_contains_descriptions_of_submatchers():
     matcher = contains_exactly(equal_to("apple"), equal_to("banana"))
     
     assert_equal(
-        "iterable containing in any order:\n  * 'apple'\n  * 'banana'",
+        "iterable containing these 2 elements in any order:\n  * 'apple'\n  * 'banana'",
         matcher.describe()
     )
 
@@ -56,7 +73,7 @@ def elements_are_coerced_to_matchers():
     matcher = contains_exactly("apple", "banana")
     
     assert_equal(
-        "iterable containing in any order:\n  * 'apple'\n  * 'banana'",
+        "iterable containing these 2 elements in any order:\n  * 'apple'\n  * 'banana'",
         matcher.describe()
     )
 
