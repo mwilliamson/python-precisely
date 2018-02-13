@@ -1,5 +1,6 @@
 import operator
 
+from .base import Matcher
 from .results import matched, unmatched
 
 
@@ -51,7 +52,7 @@ def close_to(value, delta):
     return IsCloseToMatcher(value, delta)
 
 
-class IsCloseToMatcher(object):
+class IsCloseToMatcher(Matcher):
     def __init__(self, value, delta):
         self._value = value
         self._delta = delta
