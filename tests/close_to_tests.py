@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from nose.tools import istest, assert_equal
 
-from precisely import close_to
+from precisely import close_to, is_sequence
 from precisely.results import matched, unmatched
 
 
@@ -33,3 +33,9 @@ def close_to_matches_datetime_values():
 def close_to_description_describes_value():
     matcher = close_to(42, 1)
     assert_equal("close to 42 +/- 1", matcher.describe())
+
+
+@istest
+def close_to_can_be_used_in_composite_matcher():
+    matcher = is_sequence("a", "b", close_to(42, 1))
+    assert_equal(matched(), matcher.match(("a", "b", 42)))
