@@ -32,7 +32,7 @@ def _comparison_matcher(operator, operator_description, value):
     return ComparisonMatcher(operator, operator_description, value)
 
 
-class ComparisonMatcher(object):
+class ComparisonMatcher(Matcher):
     def __init__(self, operator, operator_description, value):
         self._operator = operator
         self._operator_description = operator_description
