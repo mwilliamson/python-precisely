@@ -160,6 +160,13 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
       assert_that(result, has_len(equal_to(2)))
 
+* ``raises(exception)``: matches ``exception`` if ``exception`` is raised by calling code
+  For instance:
+
+  .. code:: python
+
+      assert_that(lambda: func("arg"), raises(instance_of(Exception)))
+
 Alternatives
 ------------
 
