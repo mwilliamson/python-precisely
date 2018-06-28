@@ -5,6 +5,7 @@ from .object_matchers import has_attr, has_attrs, instance_of
 from .iterable_matchers import contains_exactly, includes, is_sequence
 from .feature_matchers import has_feature
 from .mapping_matchers import is_mapping
+from .raises import raises
 
 
 __all__ = [
@@ -32,6 +33,7 @@ __all__ = [
     "is_sequence",
     "has_feature",
     "is_mapping",
+    "raises",
 ]
 
 # Deprecated
