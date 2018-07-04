@@ -88,6 +88,15 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
       assert_that(result, is_sequence("a", "b"))
       # Matches ["a", "b"] but not ["b", "a"]
 
+* ``includes(*args)``: matches an iterable if it includes all of the elements.
+  For instance:
+
+  .. code:: python
+
+      assert_that(result, includes("a", "b"))
+      # Matches ["a", "b"], ["b", "a"] and ["a", "c", "b"]
+      # but not ["a", "c"] nor ["a"]
+
 * ``is_mapping(**matchers)``: matches a mapping, such as a ``dict``, if it has the same keys with matching values.
   An error will be raised if the mapping is missing any keys, or has any extra keys.
   For instance:
