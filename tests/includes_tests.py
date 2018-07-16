@@ -17,7 +17,7 @@ def mismatches_when_item_is_missing():
     matcher = includes(equal_to("apple"), equal_to("banana"), equal_to("coconut"))
 
     assert_equal(
-        unmatched("was missing element:\n  * 'banana'\nThese elements were in the iterable, but did not match:\n  * 'coconut': was 'coconut'\n  * 'apple': already matched"),
+        unmatched("was missing element:\n  * 'banana'\nThese elements were in the iterable, but did not match the missing element:\n  * 'coconut': was 'coconut'\n  * 'apple': already matched"),
         matcher.match(["coconut", "apple"])
     )
 
@@ -27,7 +27,7 @@ def mismatches_when_duplicate_is_missing():
     matcher = includes(equal_to("apple"), equal_to("apple"))
 
     assert_equal(
-        unmatched("was missing element:\n  * 'apple'\nThese elements were in the iterable, but did not match:\n  * 'apple': already matched"),
+        unmatched("was missing element:\n  * 'apple'\nThese elements were in the iterable, but did not match the missing element:\n  * 'apple': already matched"),
         matcher.match(["apple"])
     )
 

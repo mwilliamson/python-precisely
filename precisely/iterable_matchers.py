@@ -85,7 +85,7 @@ class _Matches(object):
             else:
                 mismatches.append(result)
 
-        return unmatched("was missing element:{0}\nThese elements were in the iterable, but did not match:{1}".format(
+        return unmatched("was missing element:{0}\nThese elements were in the iterable, but did not match the missing element:{1}".format(
             indented_list([matcher.describe()]),
             indented_list("{0}: {1}".format(repr(value), mismatch.explanation) for value, mismatch in zip(self._values, mismatches)),
         ))
