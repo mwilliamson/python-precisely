@@ -97,6 +97,14 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
       # Matches ["a", "b"], ["b", "a"] and ["a", "c", "b"]
       # but not ["a", "c"] nor ["a"]
 
+* ``contains_only(matcher)``: matches an iterable if every element matches `matcher`.
+  For instance:
+
+  .. code:: python
+
+      assert_that(result, contains_only(has_attrs(name=is_a(str)))
+      # matches all objects with a string name attribute
+
 * ``is_mapping(**matchers)``: matches a mapping, such as a ``dict``, if it has the same keys with matching values.
   An error will be raised if the mapping is missing any keys, or has any extra keys.
   For instance:

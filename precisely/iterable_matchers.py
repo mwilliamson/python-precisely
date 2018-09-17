@@ -139,4 +139,30 @@ class IsSequenceMatcher(Matcher):
             ))
 
 
+def contains_only(matcher):
+    return IsSequenceContainsOnly(matcher)
+
+
+class IsSequenceContainsOnly(Matcher):
+
+    def __init__(self, matcher):
+        self._matcher = matcher
+
+    def match(self, actual):
+        values = list(actual)
+
+        if len(values) == 0:
+            return unmatched(_empty_iterable_description)
+
+        for index, value in enumerate(values):
+            result = self._matcher.match(value)
+            if not result.is_match:
+                return unmatched("element at index {0} mismatched: {1}".format(index, result.explanation))
+
+        return matched()
+
+    def describe(self):
+        return "iterable only containing: {0}".format(self._matcher.describe())
+
+
 _empty_iterable_description = "empty iterable"
