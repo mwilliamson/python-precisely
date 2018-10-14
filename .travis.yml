@@ -10,5 +10,5 @@ python:
   - "3.6"
   - "pypy"
 install:
-  - "pip install 'virtualenv<14.0.0' tox"
+  - "pip install 'virtualenv<14.0.0' 'tox<3.2'"
 script: tox -e py
