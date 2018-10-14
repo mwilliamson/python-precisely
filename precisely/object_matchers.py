@@ -60,10 +60,10 @@ class HasAttrs(Matcher):
         ))
 
 
-def instance_of(type_):
-    return InstanceOf(type_)
+def is_instance(type_):
+    return IsInstance(type_)
 
-class InstanceOf(Matcher):
+class IsInstance(Matcher):
     def __init__(self, type_):
         self._type = type_
     
@@ -74,4 +74,4 @@ class InstanceOf(Matcher):
             return unmatched("had type {0}".format(type(actual).__name__))
     
     def describe(self):
-        return "instance of {0}".format(self._type.__name__)
+        return "is instance of {0}".format(self._type.__name__)
