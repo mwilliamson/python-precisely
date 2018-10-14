@@ -118,7 +118,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   .. code:: python
 
       assert_that(result, all_of(
-          is_instance(User),
+          instance_of(User),
           has_attrs(name="bob"),
       ))
 
