@@ -21,7 +21,7 @@ class ContainsExactlyMatcher(Matcher):
 
         if isinstance(values, Result):
             return values
-        if len(values) == 0 and len(self._matchers) != 0:
+        elif len(values) == 0 and len(self._matchers) != 0:
             return unmatched("iterable was empty")
         else:
             matches = _Matches(values)
@@ -63,6 +63,8 @@ class IncludesMatcher(Matcher):
 
         if isinstance(values, Result):
             return values
+        elif len(values) == 0 and len(self._matchers) != 0:
+            return unmatched("iterable was empty")
 
         matches = _Matches(values)
         for matcher in self._matchers:
