@@ -17,11 +17,16 @@ class ContainsExactlyMatcher(Matcher):
         self._matchers = matchers
 
     def match(self, actual):
-        actual = list(actual)
-        if len(actual) == 0 and len(self._matchers) != 0:
+        try:
+            iterator = iter(actual)
+        except TypeError:
+            return unmatched("was not iterable\nwas {0}".format(repr(actual)))
+
+        values = list(iterator)
+        if len(values) == 0 and len(self._matchers) != 0:
             return unmatched("iterable was empty")
         else:
-            matches = _Matches(actual)
+            matches = _Matches(values)
             for matcher in self._matchers:
                 result = matches.match(matcher)
                 if not result.is_match:
