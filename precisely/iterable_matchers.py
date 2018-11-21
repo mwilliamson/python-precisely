@@ -152,7 +152,7 @@ class AllElementsMatcher(Matcher):
         values = list(actual)
 
         if len(values) == 0:
-            return unmatched(_empty_iterable_description)
+            return matched()
 
         for index, value in enumerate(values):
             result = self._matcher.match(value)

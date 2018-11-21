@@ -103,8 +103,8 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   .. code:: python
 
       assert_that(result, all_elements(equal_to(42)))
-      # Matches [42] and [42, 42, 42]
-      # but not [] nor [42, 43]
+      # Matches [42], [42, 42, 42] and []
+      # but not [42, 43]
 
 * ``is_mapping(**matchers)``: matches a mapping, such as a ``dict``, if it has the same keys with matching values.
   An error will be raised if the mapping is missing any keys, or has any extra keys.

@@ -22,13 +22,10 @@ def mismatches_when_item_in_iterable_does_not_match():
 
 
 @istest
-def mismatches_when_iterable_is_empty():
+def matches_when_iterable_is_empty():
     matcher = all_elements(equal_to("apple"))
 
-    assert_equal(
-        unmatched("empty iterable"),
-        matcher.match([])
-    )
+    assert_equal(matched(), matcher.match([]))
 
 
 @istest
