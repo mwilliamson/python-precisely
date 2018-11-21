@@ -139,11 +139,11 @@ class IsSequenceMatcher(Matcher):
             ))
 
 
-def contains_only(matcher):
-    return IsSequenceContainsOnly(matcher)
+def all_elements(matcher):
+    return AllElementsMatcher(matcher)
 
 
-class IsSequenceContainsOnly(Matcher):
+class AllElementsMatcher(Matcher):
 
     def __init__(self, matcher):
         self._matcher = matcher
