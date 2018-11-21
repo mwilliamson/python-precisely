@@ -172,7 +172,7 @@ class AllElementsMatcher(Matcher):
         return matched()
 
     def describe(self):
-        return "all elements of iterable match:{0}".format(self.element_matcher.describe())
+        return "all elements of iterable match: {0}".format(self.element_matcher.describe())
 
 
 _empty_iterable_description = "empty iterable"

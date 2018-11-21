@@ -33,6 +33,6 @@ def description_contains_descriptions_of_submatcher():
     matcher = all_elements(equal_to("apple"))
 
     assert_equal(
-        "all elements of iterable match:'apple'",
+        "all elements of iterable match: 'apple'",
         matcher.describe()
     )
