@@ -39,7 +39,7 @@ def mismatches_when_no_submatchers_match():
     )
     
     assert_equal(
-        unmatched("did not match any of:\n  * 'bob' [was 'alice']\n  * 'jim' [was 'alice']"),
+        unmatched("did not match any of:\n * 'bob' [was 'alice']\n * 'jim' [was 'alice']"),
         matcher.match("alice"),
     )
 
@@ -52,7 +52,7 @@ def description_contains_descriptions_of_submatchers():
     )
     
     assert_equal(
-        "any of:\n  * object with attribute username: 'bob'\n  * object with attribute email_address: 'bob@example.com'",
+        "any of:\n * object with attribute username: 'bob'\n * object with attribute email_address: 'bob@example.com'",
         matcher.describe()
     )
 

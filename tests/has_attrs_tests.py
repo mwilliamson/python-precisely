@@ -61,7 +61,7 @@ def description_contains_descriptions_of_properties():
     )
     
     assert_equal(
-        "object with attributes:\n  * username: 'bob'",
+        "object with attributes:\n * username: 'bob'",
         matcher.describe()
     )
 
@@ -74,7 +74,7 @@ def can_pass_properties_as_list_of_tuples():
     )
     
     assert_equal(
-        "object with attributes:\n  * username: 'bob'\n  * email_address: 'bob@example.com'",
+        "object with attributes:\n * username: 'bob'\n * email_address: 'bob@example.com'",
         matcher.describe()
     )
 
@@ -86,6 +86,6 @@ def can_pass_properties_as_dictionary():
     })
     
     assert_equal(
-        "object with attributes:\n  * username: 'bob'",
+        "object with attributes:\n * username: 'bob'",
         matcher.describe()
     )

@@ -5,6 +5,7 @@ from .object_matchers import has_attr, has_attrs, is_instance
 from .iterable_matchers import all_elements, contains_exactly, includes, is_sequence
 from .feature_matchers import has_feature
 from .mapping_matchers import is_mapping
+from .results import indent as _indent
 
 
 __all__ = [
@@ -43,4 +44,7 @@ instance_of = is_instance
 def assert_that(value, matcher):
     result = matcher.match(value)
     if not result.is_match:
-        raise AssertionError("\nExpected: {0}\nbut: {1}".format(matcher.describe(), result.explanation))
+        raise AssertionError("\nExpected:{0}\nbut:{1}".format(
+            _indent("\n" + matcher.describe()),
+            _indent("\n" + result.explanation),
+        ))

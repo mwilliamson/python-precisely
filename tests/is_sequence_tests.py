@@ -26,7 +26,7 @@ def mismatches_when_items_are_in_wrong_order():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
     assert_equal(
-        unmatched("element at index 0 mismatched:\n  * was 'banana'"),
+        unmatched("element at index 0 mismatched:\n * was 'banana'"),
         matcher.match(["banana", "apple"])
     )
 
@@ -66,7 +66,7 @@ def mismatches_when_contains_extra_item():
     matcher = is_sequence(equal_to("apple"))
     
     assert_equal(
-        unmatched("had extra elements:\n  * 'coconut'"),
+        unmatched("had extra elements:\n * 'coconut'"),
         matcher.match(["apple", "coconut"])
     )
 
@@ -86,7 +86,7 @@ def description_contains_descriptions_of_submatchers():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
     assert_equal(
-        "iterable containing in order:\n  0: 'apple'\n  1: 'banana'",
+        "iterable containing in order:\n 0: 'apple'\n 1: 'banana'",
         matcher.describe()
     )
 
@@ -96,7 +96,7 @@ def elements_are_coerced_to_matchers():
     matcher = is_sequence("apple", "banana")
     
     assert_equal(
-        "iterable containing in order:\n  0: 'apple'\n  1: 'banana'",
+        "iterable containing in order:\n 0: 'apple'\n 1: 'banana'",
         matcher.describe()
     )
 

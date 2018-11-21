@@ -14,4 +14,4 @@ def assert_that_raises_assertion_error_if_match_fails():
         assert_that(1, equal_to(2))
         assert False, "Expected AssertionError"
     except AssertionError as error:
-        assert_equal("\nExpected: 2\nbut: was 1", str(error))
+        assert_equal("\nExpected:\n  2\nbut:\n  was 1", str(error))
