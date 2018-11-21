@@ -124,9 +124,12 @@ class IsSequenceMatcher(Matcher):
         self._matchers = matchers
 
     def match(self, actual):
-        values = list(actual)
+        values = _to_list_or_mismatch(actual)
 
-        if len(values) == 0 and len(self._matchers) != 0:
+        if isinstance(values, Result):
+            return values
+
+        elif len(values) == 0 and len(self._matchers) != 0:
             return unmatched("iterable was empty")
 
         extra = []

@@ -12,6 +12,16 @@ def matches_when_all_submatchers_match_one_item_with_no_items_leftover():
 
 
 @istest
+def mismatches_when_actual_is_not_iterable():
+    matcher = is_sequence(equal_to("apple"))
+
+    assert_equal(
+        unmatched("was not iterable\nwas 0"),
+        matcher.match(0)
+    )
+
+
+@istest
 def mismatches_when_items_are_in_wrong_order():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
