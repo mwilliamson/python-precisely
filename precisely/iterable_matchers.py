@@ -146,7 +146,7 @@ def all_elements(matcher):
 class AllElementsMatcher(Matcher):
 
     def __init__(self, matcher):
-        self._matcher = matcher
+        self.element_matcher = matcher
 
     def match(self, actual):
         values = list(actual)
@@ -155,14 +155,14 @@ class AllElementsMatcher(Matcher):
             return matched()
 
         for index, value in enumerate(values):
-            result = self._matcher.match(value)
+            result = self.element_matcher.match(value)
             if not result.is_match:
                 return unmatched("element at index {0} mismatched: {1}".format(index, result.explanation))
 
         return matched()
 
     def describe(self):
-        return "iterable only containing: {0}".format(self._matcher.describe())
+        return "iterable only containing: {0}".format(self.element_matcher.describe())
 
 
 _empty_iterable_description = "empty iterable"
