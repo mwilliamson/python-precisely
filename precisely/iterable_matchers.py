@@ -139,4 +139,30 @@ class IsSequenceMatcher(Matcher):
             ))
 
 
+def all_elements(matcher):
+    return AllElementsMatcher(matcher)
+
+
+class AllElementsMatcher(Matcher):
+
+    def __init__(self, matcher):
+        self.element_matcher = matcher
+
+    def match(self, actual):
+        values = list(actual)
+
+        if len(values) == 0:
+            return matched()
+
+        for index, value in enumerate(values):
+            result = self.element_matcher.match(value)
+            if not result.is_match:
+                return unmatched("element at index {0} mismatched: {1}".format(index, result.explanation))
+
+        return matched()
+
+    def describe(self):
+        return "all elements of iterable match:{0}".format(self.element_matcher.describe())
+
+
 _empty_iterable_description = "empty iterable"
