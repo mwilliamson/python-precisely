@@ -4,7 +4,7 @@ except ImportError:
     from itertools import izip_longest as zip_longest
 
 from .base import Matcher
-from .results import matched, unmatched, indented_list, indexed_indented_list
+from .results import matched, unmatched, indented_list, indexed_indented_list, Result
 from .coercion import to_matcher
 
 
@@ -17,12 +17,10 @@ class ContainsExactlyMatcher(Matcher):
         self._matchers = matchers
 
     def match(self, actual):
-        try:
-            iterator = iter(actual)
-        except TypeError:
-            return unmatched("was not iterable\nwas {0}".format(repr(actual)))
+        values = _to_list_or_mismatch(actual)
 
-        values = list(iterator)
+        if isinstance(values, Result):
+            return values
         if len(values) == 0 and len(self._matchers) != 0:
             return unmatched("iterable was empty")
         else:
@@ -61,7 +59,12 @@ class IncludesMatcher(Matcher):
         self._matchers = matchers
 
     def match(self, actual):
-        matches = _Matches(list(actual))
+        values = _to_list_or_mismatch(actual)
+
+        if isinstance(values, Result):
+            return values
+
+        matches = _Matches(values)
         for matcher in self._matchers:
             result = matches.match(matcher)
             if not result.is_match:
@@ -176,3 +179,12 @@ class AllElementsMatcher(Matcher):
 
 
 _empty_iterable_description = "empty iterable"
+
+
+def _to_list_or_mismatch(iterable):
+    try:
+        iterator = iter(iterable)
+    except TypeError:
+        return unmatched("was not iterable\nwas {0}".format(repr(iterable)))
+
+    return list(iterator)

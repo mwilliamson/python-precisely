@@ -13,6 +13,16 @@ def matches_when_all_submatchers_match_one_item_with_no_items_leftover():
 
 
 @istest
+def mismatches_when_actual_is_not_iterable():
+    matcher = includes(equal_to("apple"))
+
+    assert_equal(
+        unmatched("was not iterable\nwas 0"),
+        matcher.match(0)
+    )
+
+
+@istest
 def mismatches_when_item_is_missing():
     matcher = includes(equal_to("apple"), equal_to("banana"), equal_to("coconut"))
 
