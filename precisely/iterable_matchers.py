@@ -17,12 +17,16 @@ class ContainsExactlyMatcher(Matcher):
         self._matchers = matchers
 
     def match(self, actual):
-        matches = _Matches(list(actual))
-        for matcher in self._matchers:
-            result = matches.match(matcher)
-            if not result.is_match:
-                return result
-        return matches.match_remaining()
+        actual = list(actual)
+        if len(actual) == 0 and len(self._matchers) != 0:
+            return unmatched("iterable was empty")
+        else:
+            matches = _Matches(actual)
+            for matcher in self._matchers:
+                result = matches.match(matcher)
+                if not result.is_match:
+                    return result
+            return matches.match_remaining()
 
     def describe(self):
         elements_description = indented_list(
