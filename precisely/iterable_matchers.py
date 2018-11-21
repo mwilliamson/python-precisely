@@ -164,9 +164,6 @@ class AllElementsMatcher(Matcher):
     def match(self, actual):
         values = list(actual)
 
-        if len(values) == 0:
-            return matched()
-
         for index, value in enumerate(values):
             result = self.element_matcher.match(value)
             if not result.is_match:
