@@ -32,6 +32,26 @@ def mismatches_when_item_is_missing():
 
 
 @istest
+def mismatches_when_item_is_expected_but_iterable_is_empty():
+    matcher = is_sequence(equal_to("apple"))
+
+    assert_equal(
+        unmatched("iterable was empty"),
+        matcher.match([])
+    )
+
+
+@istest
+def when_empty_iterable_is_expected_then_empty_iterable_matches():
+    matcher = is_sequence()
+
+    assert_equal(
+        matched(),
+        matcher.match([])
+    )
+
+
+@istest
 def mismatches_when_contains_extra_item():
     matcher = is_sequence(equal_to("apple"))
     

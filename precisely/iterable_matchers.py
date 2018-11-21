@@ -117,6 +117,10 @@ class IsSequenceMatcher(Matcher):
 
     def match(self, actual):
         values = list(actual)
+
+        if len(values) == 0 and len(self._matchers) != 0:
+            return unmatched("iterable was empty")
+
         extra = []
         for index, (matcher, value) in enumerate(zip_longest(self._matchers, values, fillvalue=self._missing)):
             if matcher is self._missing:
