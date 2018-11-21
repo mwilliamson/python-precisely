@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name='precisely',
-    version='0.1.5',
+    version='0.1.6',
     description='Rich matchers, useful for assertions in tests. Inspired by Hamcrest.',
     long_description=read("README.rst"),
     author='Michael Williamson',
