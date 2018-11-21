@@ -12,6 +12,16 @@ def matches_when_all_items_in_iterable_match():
 
 
 @istest
+def mismatches_when_actual_is_not_iterable():
+    matcher = all_elements(equal_to("apple"))
+    
+    assert_equal(
+        unmatched("was not iterable\nwas 0"),
+        matcher.match(0)
+    )
+
+
+@istest
 def mismatches_when_item_in_iterable_does_not_match():
     matcher = all_elements(equal_to("apple"))
 

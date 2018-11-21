@@ -168,7 +168,10 @@ class AllElementsMatcher(Matcher):
         self._element_matcher = matcher
 
     def match(self, actual):
-        values = list(actual)
+        values = _to_list_or_mismatch(actual)
+
+        if isinstance(values, Result):
+            return values
 
         for index, value in enumerate(values):
             result = self._element_matcher.match(value)
