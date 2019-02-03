@@ -28,7 +28,7 @@ def matches_when_expected_Exception_exception_is_raised():
 @istest
 def mismatches_when_no_exception_is_raised():
     matcher = raises(is_instance(KeyError))
-    assert_equal(unmatched("did not raise exception"), matcher.match(lambda: _function_raises_keyerror("in dict")))
+    assert_equal(unmatched("did not raise exception"), matcher.match(lambda: None))
 
 
 @istest
