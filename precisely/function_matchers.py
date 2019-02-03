@@ -2,24 +2,25 @@ from .base import Matcher
 from .results import matched, unmatched
 
 
-def raises(exception):
-    return RaisesMatcher(exception)
+def raises(exception_matcher):
+    return RaisesMatcher(exception_matcher)
 
 
 class RaisesMatcher(Matcher):
-    def __init__(self, expected):
-        self._expected = expected
+    def __init__(self, exception_matcher):
+        self._exception_matcher = exception_matcher
 
     def match(self, actual):
         try:
-            try:
-                actual()
-            except self._expected:
+            actual()
+        except Exception as error:
+            result = self._exception_matcher.match(error)
+            if result.is_match:
                 return matched()
-        except Exception as e:
-            return unmatched("raised {0!r}".format(e.__class__.__name__))
+            else:
+                return unmatched("exception did not match: {}".format(result.explanation))
 
-        return unmatched("no exception raised")
+        return unmatched("did not raise exception")
 
     def describe(self):
-        return "expected {0}".format(self._expected)
+        return "expected exception: {0}".format(self._expected)

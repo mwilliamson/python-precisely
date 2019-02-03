@@ -1,6 +1,6 @@
 from nose.tools import istest, assert_equal
 
-from precisely import raises
+from precisely import is_instance, raises
 from precisely.results import matched, unmatched
 
 
@@ -11,13 +11,13 @@ def _function_raises_keyerror(key):
 
 @istest
 def matches_when_expected_exception_is_raised():
-    matcher = raises(KeyError)
+    matcher = raises(is_instance(KeyError))
     assert_equal(matched(), matcher.match(lambda: _function_raises_keyerror("not in dict")))
 
 
 @istest
 def matches_when_expected_Exception_exception_is_raised():
-    matcher = raises(Exception)
+    matcher = raises(is_instance(Exception))
 
     def _raise_exception():
         raise Exception
@@ -27,11 +27,11 @@ def matches_when_expected_Exception_exception_is_raised():
 
 @istest
 def mismatches_when_no_exception_is_raised():
-    matcher = raises(KeyError)
-    assert_equal(unmatched("no exception raised"), matcher.match(lambda: _function_raises_keyerror("in dict")))
+    matcher = raises(is_instance(KeyError))
+    assert_equal(unmatched("did not raise exception"), matcher.match(lambda: _function_raises_keyerror("in dict")))
 
 
 @istest
 def mismatches_when_unexpected_exception_is_raised():
-    matcher = raises(ValueError)
-    assert_equal(unmatched("raised 'KeyError'"), matcher.match(lambda: _function_raises_keyerror("not in dict")))
+    matcher = raises(is_instance(ValueError))
+    assert_equal(unmatched("exception did not match: had type KeyError"), matcher.match(lambda: _function_raises_keyerror("not in dict")))
