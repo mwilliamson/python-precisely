@@ -3,10 +3,10 @@ from .results import matched, unmatched
 
 
 def raises(exception):
-    return Raises(exception)
+    return RaisesMatcher(exception)
 
 
-class Raises(Matcher):
+class RaisesMatcher(Matcher):
     def __init__(self, expected):
         self._expected = expected
 
