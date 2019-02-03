@@ -29,6 +29,12 @@ def mismatches_when_unexpected_exception_is_raised():
 
 
 @istest
+def mismatches_when_value_is_not_callable():
+    matcher = raises(is_instance(ValueError))
+    assert_equal(unmatched("was not callable"), matcher.match(42))
+
+
+@istest
 def description_includes_description_of_exception():
     matcher = raises(is_instance(ValueError))
-    assert_equal("a function raising: is instance of ValueError", matcher.describe())
+    assert_equal("a callable raising: is instance of ValueError", matcher.describe())

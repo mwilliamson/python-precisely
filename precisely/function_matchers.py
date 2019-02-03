@@ -11,6 +11,9 @@ class RaisesMatcher(Matcher):
         self._exception_matcher = exception_matcher
 
     def match(self, actual):
+        if not callable(actual):
+            return unmatched("was not callable")
+
         try:
             actual()
         except Exception as error:
@@ -23,4 +26,4 @@ class RaisesMatcher(Matcher):
         return unmatched("did not raise exception")
 
     def describe(self):
-        return "a function raising: {0}".format(self._exception_matcher.describe())
+        return "a callable raising: {0}".format(self._exception_matcher.describe())
