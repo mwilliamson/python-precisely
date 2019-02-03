@@ -18,7 +18,7 @@ class RaisesMatcher(Matcher):
             if result.is_match:
                 return matched()
             else:
-                return unmatched("exception did not match: {}".format(result.explanation))
+                return unmatched("exception did not match: {0}".format(result.explanation))
 
         return unmatched("did not raise exception")
 
