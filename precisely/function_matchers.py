@@ -23,4 +23,4 @@ class RaisesMatcher(Matcher):
         return unmatched("did not raise exception")
 
     def describe(self):
-        return "expected exception: {0}".format(self._expected)
+        return "a function raising: {0}".format(self._exception_matcher.describe())

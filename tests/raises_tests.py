@@ -35,3 +35,9 @@ def mismatches_when_no_exception_is_raised():
 def mismatches_when_unexpected_exception_is_raised():
     matcher = raises(is_instance(ValueError))
     assert_equal(unmatched("exception did not match: had type KeyError"), matcher.match(lambda: _function_raises_keyerror("not in dict")))
+
+
+@istest
+def description_includes_description_of_exception():
+    matcher = raises(is_instance(ValueError))
+    assert_equal("a function raising: is instance of ValueError", matcher.describe())
