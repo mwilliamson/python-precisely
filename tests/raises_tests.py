@@ -1,6 +1,6 @@
 from nose.tools import istest, assert_equal
 
-from precisely.raises import raises
+from precisely import raises
 from precisely.results import matched, unmatched
 
 
