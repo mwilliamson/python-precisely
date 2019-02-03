@@ -183,7 +183,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
   .. code:: python
 
-      assert_that(lambda: func("arg"), raises(is_instance(Exception)))
+      assert_that(lambda: func("arg"), raises(is_instance(ValueError)))
 
 Alternatives
 ------------
