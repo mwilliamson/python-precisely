@@ -1,3 +1,5 @@
+import traceback
+
 from .base import Matcher
 from .results import matched, unmatched
 
@@ -21,7 +23,10 @@ class RaisesMatcher(Matcher):
             if result.is_match:
                 return matched()
             else:
-                return unmatched("exception did not match: {0}".format(result.explanation))
+                return unmatched("exception did not match: {0}\n\n{1}".format(
+                    result.explanation,
+                    traceback.format_exc(),
+                ))
 
         return unmatched("did not raise exception")
 

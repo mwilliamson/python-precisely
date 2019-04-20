@@ -25,7 +25,11 @@ def mismatches_when_unexpected_exception_is_raised():
         raise KeyError()
 
     matcher = raises(is_instance(ValueError))
-    assert_equal(unmatched("exception did not match: had type KeyError"), matcher.match(raise_key_error))
+    result = matcher.match(raise_key_error)
+    assert not result.is_match
+    assert _normalise_newlines(result.explanation).startswith(
+        "exception did not match: had type KeyError\n\nTraceback (most recent call last):\n",
+    )
 
 
 @istest
@@ -38,3 +42,7 @@ def mismatches_when_value_is_not_callable():
 def description_includes_description_of_exception():
     matcher = raises(is_instance(ValueError))
     assert_equal("a callable raising: is instance of ValueError", matcher.describe())
+
+
+def _normalise_newlines(string):
+    return string.replace("\r\n", "\n").replace("\r", "\n")
