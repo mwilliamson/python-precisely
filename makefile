@@ -2,7 +2,7 @@
 
 test:
 	sh -c '. _virtualenv/bin/activate; nosetests tests'
-	pyflakes precisely tests
+	_virtualenv/bin/pyflakes precisely tests
 
 test-all:
 	tox
