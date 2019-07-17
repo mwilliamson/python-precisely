@@ -6,6 +6,7 @@ except ImportError:
 from .base import Matcher
 from .results import matched, unmatched, indented_list, indexed_indented_list, Result
 from .coercion import to_matcher
+from .utils import window
 
 
 def contains_exactly(*matchers):
@@ -115,17 +116,35 @@ class _Matches(object):
             )))
 
 
-def is_sequence(*matchers):
-    return IsSequenceMatcher([to_matcher(matcher) for matcher in matchers])
+def is_sequence(*matchers, **kwargs):
+    allow_extra = kwargs.pop('allow_extra', False)  # workaround for python 2
+    return IsSequenceMatcher([to_matcher(matcher) for matcher in matchers], allow_extra)
+
+
+def is_sequence_with(*matchers):
+    return is_sequence(*matchers, allow_extra=True)
 
 
 class IsSequenceMatcher(Matcher):
     _missing = object()
 
-    def __init__(self, matchers):
+    def __init__(self, matchers, allow_extra):
         self._matchers = matchers
+        self._allow_extra = allow_extra
 
     def match(self, actual):
+        if self._allow_extra:
+            for subsequence in window(_to_list_or_mismatch(actual), len(self._matchers)):
+                response = self._match(subsequence)
+                if response.is_match:
+                    break
+            if not response.is_match:
+                response = self._match(actual)
+        else:
+            response = self._match(actual)
+        return response
+
+    def _match(self, actual):
         values = _to_list_or_mismatch(actual)
 
         if isinstance(values, Result):
