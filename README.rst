@@ -117,6 +117,18 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
           "b": equal_to(4),
       }))
 
+* ``mapping_includes(matchers)``: matches a mapping, such as a ``dict``, if it has the same keys with matching values.
+  An error will be raised if the mapping is missing any keys, but allows extra keys.
+  For instance:
+
+  .. code:: python
+
+      result = {"a": 1, "b": 4, "c": 5}
+      assert_that(result, mapping_includes({
+          "a": equal_to(1),
+          "b": equal_to(4),
+      }))
+
 * ``anything``: matches all values.
 
 * ``is_instance(type)``: matches any value where ``isinstance(value, type)``.
