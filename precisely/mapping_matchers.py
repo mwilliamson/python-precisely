@@ -4,17 +4,23 @@ from .results import matched, unmatched, indented_list
 
 
 def is_mapping(matchers):
-    return IsMappingMatcher(dict(
+    return IsMappingMatcher(_values_to_matchers(matchers), allow_extra=False)
+
+
+def mapping_includes(matchers):
+    return IsMappingMatcher(_values_to_matchers(matchers), allow_extra=True)
+
+
+def _values_to_matchers(matchers):
+    return dict(
         (key, to_matcher(matcher))
         for key, matcher in matchers.items()
-    ))
+    )
 
 
 class IsMappingMatcher(Matcher):
-    _describe_message = "mapping with items:{0}"
-    _allow_extra = False
-
-    def __init__(self, matchers):
+    def __init__(self, matchers, allow_extra):
+        self._allow_extra = allow_extra
         self._matchers = matchers
 
     def match(self, actual):
@@ -36,19 +42,12 @@ class IsMappingMatcher(Matcher):
         return matched()
 
     def describe(self):
-        return self._describe_message.format(indented_list(sorted(
+        items_description = indented_list(sorted(
             "{0!r}: {1}".format(key, matcher.describe())
             for key, matcher in self._matchers.items()
-        )))
+        ))
 
-
-def mapping_includes(matchers):
-    return MappingIncludesMatcher(dict(
-        (key, to_matcher(matcher))
-        for key, matcher in matchers.items()
-    ))
-
-
-class MappingIncludesMatcher(IsMappingMatcher):
-    _describe_message = "mapping including items:{0}"
-    _allow_extra = True
+        if self._allow_extra:
+            return "mapping including items:{0}".format(items_description)
+        else:
+            return "mapping with items:{0}".format(items_description)
