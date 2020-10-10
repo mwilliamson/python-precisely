@@ -69,7 +69,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
   .. code:: python
 
-      assert_that(result, has_attrs(id=is_a(int), name="bob"))
+      assert_that(result, has_attrs(id=is_instance(int), name="bob"))
 
 * ``has_attr(attribute_name, matcher)``: matches a value if it has the specified attribute.
   Using ``has_attrs`` is generally considered more idiomatic when the attribute name is constant.
@@ -77,11 +77,11 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
   .. code:: python
 
-      assert_that(result, has_attr("id", is_a(int)))
+      assert_that(result, has_attr("id", is_instance(int)))
 
   use:
 
-      assert_that(result, has_attrs(id=is_a(int)))
+      assert_that(result, has_attrs(id=is_instance(int)))
 
 * ``contains_exactly(*args)``: matches an iterable if it has the same elements in any order.
   For instance:
