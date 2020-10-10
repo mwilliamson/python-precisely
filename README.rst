@@ -64,19 +64,24 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``equal_to(value)``: matches a value if it is equal to ``value`` using ``==``.
 
-* ``has_attr(attribute_name, matcher)``: matches a value if it has a specified attribute.
-  For instance:
-
-  .. code:: python
-
-      assert_that(result, has_attr("id", is_a(int)))
-
 * ``has_attrs(**kwargs)``: matches a value if it has the specified attributes.
   For instance:
 
   .. code:: python
 
       assert_that(result, has_attrs(id=is_a(int), name="bob"))
+
+* ``has_attr(attribute_name, matcher)``: matches a value if it has the specified attribute.
+  Using ``has_attrs`` is generally considered more idiomatic when the attribute name is constant.
+  For instance, instead of:
+
+  .. code:: python
+
+      assert_that(result, has_attr("id", is_a(int)))
+
+  use:
+
+      assert_that(result, has_attrs(id=is_a(int)))
 
 * ``contains_exactly(*args)``: matches an iterable if it has the same elements in any order.
   For instance:
