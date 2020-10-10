@@ -86,7 +86,8 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
   .. code:: python
 
       assert_that(result, is_sequence("a", "b"))
-      # Matches ["a", "b"] but not ["b", "a"]
+      # Matches ["a", "b"]
+      # but not ["b", "a"] nor ["a", "b", "c"] nor ["c", "a", "b"]
 
 * ``includes(*args)``: matches an iterable if it includes all of the elements.
   For instance:
@@ -96,6 +97,9 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
       assert_that(result, includes("a", "b"))
       # Matches ["a", "b"], ["b", "a"] and ["a", "c", "b"]
       # but not ["a", "c"] nor ["a"]
+      assert_that(result, includes("a", "a"))
+      # Matches ["a", "a"] and ["a", "a", "a"]
+      # but not ["a"]
 
 * ``all_elements(matcher)``: matches an iterable if every element matches `matcher`.
   For instance:
@@ -123,11 +127,12 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
   .. code:: python
 
-      result = {"a": 1, "b": 4, "c": 5}
       assert_that(result, mapping_includes({
           "a": equal_to(1),
           "b": equal_to(4),
       }))
+      # Matches {"a": 1, "b": 4} and {"a": 1, "b": 4, "c": 5}
+      # but not {"a": 1} nor {"a": 1, "b": 5}
 
 * ``anything``: matches all values.
 
