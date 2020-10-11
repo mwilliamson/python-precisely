@@ -81,6 +81,8 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
   use:
 
+  .. code:: python
+
       assert_that(result, has_attrs(id=is_instance(int)))
 
 * ``contains_exactly(*args)``: matches an iterable if it has the same elements in any order.
