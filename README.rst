@@ -37,7 +37,7 @@ This is useful when:
 When the assertion fails,
 rather than just stating the two values weren't equal,
 the error message will describe the failure in more detail.
-For instance, if unique has the value ``["a", "a", "b"]``,
+For instance, if ``result`` has the value ``["a", "a", "b"]``,
 we'd get the failure message::
 
     Expected: iterable containing in any order:
