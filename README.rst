@@ -25,7 +25,8 @@ but no other items.
 Unlike, say, ``assert result == ["a", "b"]``, our assertion ignores the ordering of elements.
 This is useful when:
 
-* the ordering of the result is non-determistic, such as when using ``set``.
+* the ordering of the result is non-determistic,
+  such as the results of SQL SELECT queries without an ORDER BY clause.
 
 * the ordering isn't specified in the contract of ``unique``.
   If we assert a particular ordering, then we'd be testing the implementation rather than the contract.
