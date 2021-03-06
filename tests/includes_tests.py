@@ -33,6 +33,16 @@ def mismatches_when_item_is_missing():
 
 
 @istest
+def mismatches_when_duplicate_is_missing():
+    matcher = includes(equal_to("apple"), equal_to("apple"))
+
+    assert_equal(
+        unmatched("was missing element:\n * 'apple'\nThese elements were in the iterable, but did not match the missing element:\n * 'apple': already matched"),
+        matcher.match(["apple"])
+    )
+
+
+@istest
 def mismatches_when_item_is_expected_but_iterable_is_empty():
     matcher = includes(equal_to("apple"))
 
@@ -49,16 +59,6 @@ def when_no_elements_are_expected_then_empty_iterable_matches():
     assert_equal(
         matched(),
         matcher.match([])
-    )
-
-
-@istest
-def mismatches_when_duplicate_is_missing():
-    matcher = includes(equal_to("apple"), equal_to("apple"))
-
-    assert_equal(
-        unmatched("was missing element:\n * 'apple'\nThese elements were in the iterable, but did not match the missing element:\n * 'apple': already matched"),
-        matcher.match(["apple"])
     )
 
 
