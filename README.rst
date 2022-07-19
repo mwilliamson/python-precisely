@@ -184,6 +184,13 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``contains_string(substring)``: matches a string if it contains ``substring``.
 
+* ``contains_regex(regex_pattern)``: matches a string if string matches regex ``regex_pattern``.
+  For instance:
+
+  .. code:: python
+
+      assert_that("Hello there", contains_regex("^Hello.*"))
+
 * ``greater_than(value)``: matches values greater than ``value``.
 
 * ``greater_than_or_equal_to(value)``: matches values greater than or equal to ``value``.
