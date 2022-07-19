@@ -273,3 +273,15 @@ messages that this project produces, but feel free to judge for yourself:
     # Hamcrest error:
     # Expected: a sequence containing [(an object with a property 'username' matching 'bob' and an object with a property 'email_address' matching 'bob@example.com'), (an object with a property 'username' matching 'jim' and an object with a property 'email_address' matching 'jim@example.com')]
     #      but: item 0: an object with a property 'email_address' matching 'bob@example.com' property 'email_address' was 'jim@example.com'
+
+
+Contributing
+------------
+
+  .. code:: bash
+
+  # setup
+  make bootstrap
+
+  # run tests
+  make test
