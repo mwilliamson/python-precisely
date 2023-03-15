@@ -163,7 +163,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
           has_attrs(name="bob"),
       ))
 
-* ``any_of(*matchers)``: matchers a value if any sub-matcher matches.
+* ``any_of(*matchers)``: matches a value if any sub-matcher matches.
   For instance:
 
   .. code:: python
