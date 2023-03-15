@@ -153,7 +153,7 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``is_instance(type)``: matches any value where ``isinstance(value, type)``.
 
-* ``all_of(*matchers)``: matchers a value if all sub-matchers match.
+* ``all_of(*matchers)``: matches a value if all sub-matchers match.
   For instance:
 
   .. code:: python
