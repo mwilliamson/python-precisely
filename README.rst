@@ -104,6 +104,14 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
       # Matches ["a", "b"]
       # but not ["b", "a"] nor ["a", "b", "c"] nor ["c", "a", "b"]
 
+* ``is_sequence_with(*args)``: matches an iterable if it has the same elements in the same order, accepts extra items.
+  For instance:
+
+  .. code:: python
+
+      assert_that(result, is_sequence_with("a", "b"))
+      # Matches ["a", "b"], ["c", "a", "b"] and ["a", "b", "c"], but not ["b", "a"]
+
 * ``includes(*args)``: matches an iterable if it includes all of the elements.
   For instance:
 

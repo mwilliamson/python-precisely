@@ -2,7 +2,7 @@ from .base import Matcher, is_matcher
 from .comparison_matchers import contains_string, greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, starts_with, close_to
 from .core_matchers import equal_to, anything, all_of, any_of, not_
 from .object_matchers import has_attr, has_attrs, is_instance
-from .iterable_matchers import all_elements, contains_exactly, includes, is_sequence
+from .iterable_matchers import all_elements, contains_exactly, includes, is_sequence, is_sequence_with
 from .feature_matchers import has_feature
 from .function_matchers import raises
 from .mapping_matchers import is_mapping, mapping_includes
@@ -33,6 +33,7 @@ __all__ = [
     "includes",
     "is_same_sequence",
     "is_sequence",
+    "is_sequence_with",
     "has_feature",
     "is_mapping",
     "mapping_includes",
