@@ -184,6 +184,13 @@ For instance, ``has_attrs(name="bob")`` is equivalent to ``has_attrs(name=equal_
 
 * ``contains_string(substring)``: matches a string if it contains ``substring``.
 
+* ``contains_regex(regex_pattern)``: matches a string if string matches regex ``regex_pattern``.
+  For instance:
+
+  .. code:: python
+
+      assert_that("Hello there", contains_regex("^Hello.*"))
+
 * ``greater_than(value)``: matches values greater than ``value``.
 
 * ``greater_than_or_equal_to(value)``: matches values greater than or equal to ``value``.
@@ -266,3 +273,15 @@ messages that this project produces, but feel free to judge for yourself:
     # Hamcrest error:
     # Expected: a sequence containing [(an object with a property 'username' matching 'bob' and an object with a property 'email_address' matching 'bob@example.com'), (an object with a property 'username' matching 'jim' and an object with a property 'email_address' matching 'jim@example.com')]
     #      but: item 0: an object with a property 'email_address' matching 'bob@example.com' property 'email_address' was 'jim@example.com'
+
+
+Contributing
+------------
+
+  .. code:: bash
+
+  # setup
+  make bootstrap
+
+  # run tests
+  make test
