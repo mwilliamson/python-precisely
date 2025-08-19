@@ -1,6 +1,6 @@
 import collections
 
-from nose.tools import assert_equal
+from asserts import assert_equal
 
 from precisely import has_attr, equal_to
 from precisely.results import matched, unmatched

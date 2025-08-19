@@ -1,4 +1,4 @@
-from nose.tools import assert_equal
+from asserts import assert_equal
 
 from precisely import all_elements, equal_to
 from precisely.results import matched, unmatched

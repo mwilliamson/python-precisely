@@ -1,4 +1,4 @@
-from nose.tools import assert_equal
+from asserts import assert_equal
 
 from precisely import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to
 from precisely.results import matched, unmatched

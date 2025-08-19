@@ -1,6 +1,6 @@
 import functools
 
-from nose.tools import assert_equal
+from asserts import assert_equal
 
 from precisely import close_to, is_sequence
 from precisely.results import matched, unmatched

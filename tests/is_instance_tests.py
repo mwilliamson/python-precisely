@@ -1,4 +1,4 @@
-from nose.tools import assert_equal
+from asserts import assert_equal
 
 from precisely import is_instance
 from precisely.results import matched, unmatched
