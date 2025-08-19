@@ -1,7 +1,8 @@
 try:
     from itertools import zip_longest
 except ImportError:
-    from itertools import izip_longest as zip_longest
+    # For Python 2
+    from itertools import izip_longest as zip_longest  # type: ignore # no-redef
 
 from .base import Matcher
 from .results import matched, unmatched, indented_list, indexed_indented_list, Result
@@ -16,7 +17,7 @@ class ContainsExactlyMatcher(Matcher):
     def __init__(self, matchers):
         self._matchers = matchers
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         values = _to_list_or_mismatch(actual)
 
         if isinstance(values, Result):
@@ -31,7 +32,7 @@ class ContainsExactlyMatcher(Matcher):
                     return result
             return matches.match_remaining()
 
-    def describe(self):
+    def describe(self) -> str:
         elements_description = indented_list(
             matcher.describe()
             for matcher in self._matchers
@@ -58,7 +59,7 @@ class IncludesMatcher(Matcher):
     def __init__(self, matchers):
         self._matchers = matchers
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         values = _to_list_or_mismatch(actual)
 
         if isinstance(values, Result):
@@ -73,7 +74,7 @@ class IncludesMatcher(Matcher):
                 return result
         return matched()
 
-    def describe(self):
+    def describe(self) -> str:
         return "iterable including elements:{0}".format(indented_list(
             matcher.describe()
             for matcher in self._matchers
@@ -118,14 +119,20 @@ class _Matches(object):
 def is_sequence(*matchers):
     return IsSequenceMatcher([to_matcher(matcher) for matcher in matchers])
 
-
 class IsSequenceMatcher(Matcher):
-    _missing = object()
+    class _MissingMatcher(Matcher):
+        def match(self, actual) -> Result:
+            return unmatched("miss matching in _MissingMatcher")
 
-    def __init__(self, matchers):
+        def describe(self) -> str:
+            return "miss matching in _MissingMatcher"
+
+    _missing = _MissingMatcher()
+
+    def __init__(self, matchers: list[Matcher]):
         self._matchers = matchers
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         values = _to_list_or_mismatch(actual)
 
         if isinstance(values, Result):
@@ -150,7 +157,7 @@ class IsSequenceMatcher(Matcher):
         else:
             return matched()
 
-    def describe(self):
+    def describe(self) -> str:
         if len(self._matchers) == 0:
             return _empty_iterable_description
         else:
@@ -169,7 +176,7 @@ class AllElementsMatcher(Matcher):
     def __init__(self, matcher):
         self._element_matcher = matcher
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         values = _to_list_or_mismatch(actual)
 
         if isinstance(values, Result):
@@ -182,7 +189,7 @@ class AllElementsMatcher(Matcher):
 
         return matched()
 
-    def describe(self):
+    def describe(self) -> str:
         return "all elements of iterable match: {0}".format(self._element_matcher.describe())
 
 

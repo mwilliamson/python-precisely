@@ -1,11 +1,10 @@
-from nose.tools import istest, assert_equal
+from asserts import assert_equal
 
 from precisely import starts_with
 from precisely.results import matched, unmatched
 
 
-@istest
-def starts_with_matches_when_actual_string_starts_with_value_passed_to_matcher():
+def test_starts_with_matches_when_actual_string_starts_with_value_passed_to_matcher():
     matcher = starts_with("ab")
     assert_equal(matched(), matcher.match("ab"))
     assert_equal(matched(), matcher.match("abc"))
@@ -14,7 +13,6 @@ def starts_with_matches_when_actual_string_starts_with_value_passed_to_matcher()
     assert_equal(unmatched("was 'cab'"), matcher.match("cab"))
 
 
-@istest
-def starts_with_description_describes_value():
+def test_starts_with_description_describes_value():
     matcher = starts_with("ab")
     assert_equal("starts with 'ab'", matcher.describe())

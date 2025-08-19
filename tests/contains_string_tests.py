@@ -1,11 +1,10 @@
-from nose.tools import istest, assert_equal
+from asserts import assert_equal
 
 from precisely import contains_string
 from precisely.results import matched, unmatched
 
 
-@istest
-def contains_string_matches_when_actual_string_contains_value_passed_to_matcher():
+def test_contains_string_matches_when_actual_string_contains_value_passed_to_matcher():
     matcher = contains_string("ab")
     assert_equal(matched(), matcher.match("ab"))
     assert_equal(matched(), matcher.match("abc"))
@@ -15,7 +14,6 @@ def contains_string_matches_when_actual_string_contains_value_passed_to_matcher(
     assert_equal(unmatched("was 'a'"), matcher.match("a"))
 
 
-@istest
-def contains_string_description_describes_value():
+def test_contains_string_description_describes_value():
     matcher = contains_string("ab")
     assert_equal("contains the string 'ab'", matcher.describe())

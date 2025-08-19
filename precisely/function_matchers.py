@@ -1,7 +1,7 @@
 import traceback
 
 from .base import Matcher
-from .results import matched, unmatched
+from .results import matched, unmatched, Result
 
 
 def raises(exception_matcher):
@@ -12,7 +12,7 @@ class RaisesMatcher(Matcher):
     def __init__(self, exception_matcher):
         self._exception_matcher = exception_matcher
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         if not callable(actual):
             return unmatched("was not callable")
 
@@ -30,5 +30,5 @@ class RaisesMatcher(Matcher):
 
         return unmatched("did not raise exception")
 
-    def describe(self):
+    def describe(self) -> str:
         return "a callable raising: {0}".format(self._exception_matcher.describe())

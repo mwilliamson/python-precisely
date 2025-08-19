@@ -1,18 +1,16 @@
-from nose.tools import istest, assert_equal
+from asserts import assert_equal
 
 from precisely import is_sequence, equal_to
 from precisely.results import matched, unmatched
 
 
-@istest
-def matches_when_all_submatchers_match_one_item_with_no_items_leftover():
+def test_matches_when_all_submatchers_match_one_item_with_no_items_leftover():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
     assert_equal(matched(), matcher.match(["apple", "banana"]))
 
 
-@istest
-def mismatches_when_actual_is_not_iterable():
+def test_mismatches_when_actual_is_not_iterable():
     matcher = is_sequence(equal_to("apple"))
 
     assert_equal(
@@ -21,8 +19,7 @@ def mismatches_when_actual_is_not_iterable():
     )
 
 
-@istest
-def mismatches_when_items_are_in_wrong_order():
+def test_mismatches_when_items_are_in_wrong_order():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
     assert_equal(
@@ -31,8 +28,7 @@ def mismatches_when_items_are_in_wrong_order():
     )
 
 
-@istest
-def mismatches_when_item_is_missing():
+def test_mismatches_when_item_is_missing():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"), equal_to("coconut"))
     
     assert_equal(
@@ -41,8 +37,7 @@ def mismatches_when_item_is_missing():
     )
 
 
-@istest
-def mismatches_when_item_is_expected_but_iterable_is_empty():
+def test_mismatches_when_item_is_expected_but_iterable_is_empty():
     matcher = is_sequence(equal_to("apple"))
 
     assert_equal(
@@ -51,8 +46,7 @@ def mismatches_when_item_is_expected_but_iterable_is_empty():
     )
 
 
-@istest
-def when_empty_iterable_is_expected_then_empty_iterable_matches():
+def test_when_empty_iterable_is_expected_then_empty_iterable_matches():
     matcher = is_sequence()
 
     assert_equal(
@@ -61,8 +55,7 @@ def when_empty_iterable_is_expected_then_empty_iterable_matches():
     )
 
 
-@istest
-def mismatches_when_contains_extra_item():
+def test_mismatches_when_contains_extra_item():
     matcher = is_sequence(equal_to("apple"))
     
     assert_equal(
@@ -71,8 +64,7 @@ def mismatches_when_contains_extra_item():
     )
 
 
-@istest
-def when_there_are_zero_submatchers_then_description_is_of_empty_iterable():
+def test_when_there_are_zero_submatchers_then_description_is_of_empty_iterable():
     matcher = is_sequence()
 
     assert_equal(
@@ -81,8 +73,7 @@ def when_there_are_zero_submatchers_then_description_is_of_empty_iterable():
     )
 
 
-@istest
-def description_contains_descriptions_of_submatchers():
+def test_description_contains_descriptions_of_submatchers():
     matcher = is_sequence(equal_to("apple"), equal_to("banana"))
     
     assert_equal(
@@ -91,8 +82,7 @@ def description_contains_descriptions_of_submatchers():
     )
 
 
-@istest
-def elements_are_coerced_to_matchers():
+def test_elements_are_coerced_to_matchers():
     matcher = is_sequence("apple", "banana")
     
     assert_equal(

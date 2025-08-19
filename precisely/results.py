@@ -1,7 +1,7 @@
 import collections
 
 
-Result = collections.namedtuple("_Result", ["is_match", "explanation"])
+Result = collections.namedtuple("Result", ["is_match", "explanation"])
 
 
 def matched():

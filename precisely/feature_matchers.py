@@ -1,5 +1,5 @@
 from .base import Matcher
-from .results import matched, unmatched
+from .results import matched, unmatched, Result
 from .coercion import to_matcher
 
 
@@ -12,7 +12,7 @@ class HasFeatureMatcher(Matcher):
         self._extract = extract
         self._matcher = matcher
     
-    def match(self, actual):
+    def match(self, actual) -> Result:
         actual_feature = self._extract(actual)
         feature_result = self._matcher.match(actual_feature)
         if feature_result.is_match:
@@ -20,7 +20,7 @@ class HasFeatureMatcher(Matcher):
         else:
             return unmatched(self._description(feature_result.explanation))
     
-    def describe(self):
+    def describe(self) -> str:
         return self._description(self._matcher.describe())
     
     def _description(self, value):
