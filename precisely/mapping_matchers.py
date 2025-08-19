@@ -1,6 +1,6 @@
 from .base import Matcher
 from .coercion import to_matcher
-from .results import matched, unmatched, indented_list
+from .results import matched, unmatched, indented_list, Result
 
 
 def is_mapping(matchers):
@@ -23,7 +23,7 @@ class IsMappingMatcher(Matcher):
         self._allow_extra = allow_extra
         self._matchers = matchers
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         undefined = object()
         for key, matcher in self._matchers.items():
             value = actual.get(key, undefined)
@@ -41,7 +41,7 @@ class IsMappingMatcher(Matcher):
 
         return matched()
 
-    def describe(self):
+    def describe(self) -> str:
         items_description = indented_list(sorted(
             "{0!r}: {1}".format(key, matcher.describe())
             for key, matcher in self._matchers.items()

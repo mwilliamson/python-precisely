@@ -1,7 +1,7 @@
 import operator
 
 from .base import Matcher
-from .results import matched, unmatched
+from .results import matched, unmatched, Result
 
 
 def contains_string(value):
@@ -38,13 +38,13 @@ class ComparisonMatcher(Matcher):
         self._operator_description = operator_description
         self._value = value
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         if self._operator(actual, self._value):
             return matched()
         else:
             return unmatched("was {0!r}".format(actual))
 
-    def describe(self):
+    def describe(self) -> str:
         return "{0} {1!r}".format(self._operator_description, self._value)
 
 
@@ -57,12 +57,12 @@ class IsCloseToMatcher(Matcher):
         self._value = value
         self._delta = delta
 
-    def match(self, actual):
+    def match(self, actual) -> Result:
         difference = abs(self._value - actual)
         if difference > self._delta:
             return unmatched("was {0!r} ({1!r} away from {2!r})".format(actual, difference, self._value))
         else:
             return matched()
 
-    def describe(self):
+    def describe(self) -> str:
         return "close to {0!r} +/- {1!r}".format(self._value, self._delta)
