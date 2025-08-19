@@ -1,6 +1,6 @@
 import collections
 
-from nose.tools import istest, assert_equal
+from nose.tools import assert_equal
 
 from precisely import has_attrs, equal_to
 from precisely.results import matched, unmatched
@@ -8,8 +8,7 @@ from precisely.results import matched, unmatched
 
 User = collections.namedtuple("User", ["username", "email_address"])
 
-@istest
-def matches_when_properties_all_match():
+def test_matches_when_properties_all_match():
     matcher = has_attrs(
         username=equal_to("bob"),
         email_address=equal_to("bob@example.com"),
@@ -18,8 +17,7 @@ def matches_when_properties_all_match():
     assert_equal(matched(), matcher.match(User("bob", "bob@example.com")))
 
 
-@istest
-def mismatches_when_property_is_missing():
+def test_mismatches_when_property_is_missing():
     matcher = has_attrs(
         ("username", equal_to("bob")),
         ("email_address", equal_to("bob@example.com")),
@@ -31,8 +29,7 @@ def mismatches_when_property_is_missing():
     )
 
 
-@istest
-def explanation_of_mismatch_contains_mismatch_of_property():
+def test_explanation_of_mismatch_contains_mismatch_of_property():
     matcher = has_attrs(
         username=equal_to("bob"),
         email_address=equal_to("bob@example.com"),
@@ -44,8 +41,7 @@ def explanation_of_mismatch_contains_mismatch_of_property():
     )
 
 
-@istest
-def submatcher_is_coerced_to_matcher():
+def test_submatcher_is_coerced_to_matcher():
     matcher = has_attrs(username="bob")
     
     assert_equal(
@@ -54,8 +50,7 @@ def submatcher_is_coerced_to_matcher():
     )
 
 
-@istest
-def description_contains_descriptions_of_properties():
+def test_description_contains_descriptions_of_properties():
     matcher = has_attrs(
         username=equal_to("bob"),
     )
@@ -66,8 +61,7 @@ def description_contains_descriptions_of_properties():
     )
 
 
-@istest
-def can_pass_properties_as_list_of_tuples():
+def test_can_pass_properties_as_list_of_tuples():
     matcher = has_attrs(
         ("username", equal_to("bob")),
         ("email_address", equal_to("bob@example.com")),
@@ -79,8 +73,7 @@ def can_pass_properties_as_list_of_tuples():
     )
 
 
-@istest
-def can_pass_properties_as_dictionary():
+def test_can_pass_properties_as_dictionary():
     matcher = has_attrs({
         "username": equal_to("bob"),
     })
