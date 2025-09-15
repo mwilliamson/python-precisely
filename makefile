@@ -1,7 +1,7 @@
 .PHONY: test upload clean bootstrap
 
 test:
-	sh -c '. _virtualenv/bin/activate; nosetests tests'
+	sh -c '. _virtualenv/bin/activate; pytest tests/*_tests.py'
 	_virtualenv/bin/pyflakes precisely tests
 
 test-all:
