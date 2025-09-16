@@ -1,0 +1,47 @@
+name: Legacy Tests (for elderly pythons)
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  legacy:
+    name: py${{ matrix.py }} (container)
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        py: ["2.7", "3.5", "3.6", "3.7"]
+    container:
+      # Use Docker Hub python images to get the exact interpreter
+      image: python:${{ matrix.py }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Toolchain pins per interpreter ---
+      - name: Bootstrap tools (py27)
+        if: matrix.py == '2.7'
+        run: |
+          python -V
+          python -m pip install -U 'pip<21' 'setuptools<45' 'wheel<0.35' 'tox<4'
+      - name: Bootstrap tools (py35)
+        if: matrix.py == '3.5'
+        run: |
+          python -V
+          python -m pip install -U 'pip<22' 'setuptools<51' 'wheel<0.37' 'tox<4'
+      - name: Bootstrap tools (py36)
+        if: matrix.py == '3.6'
+        run: |
+          python -V
+          python -m pip install -U 'pip<23' 'setuptools<60' 'wheel<0.38' 'tox<4'
+      - name: Bootstrap tools (py37)
+        if: matrix.py == '3.7'
+        run: |
+          python -V
+          python -m pip install -U 'pip<24' 'setuptools<70' 'wheel<0.41' 'tox<4'
+
+      # --- Install deps & run tests ---
+      - name: Test via tox (preferred)
+        run: |
+          tox -vv -e py$(echo ${{ matrix.py }} | tr -d .)
