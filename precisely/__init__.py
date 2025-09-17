@@ -1,5 +1,6 @@
 from .base import Matcher, is_matcher
-from .comparison_matchers import contains_string, greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, starts_with, close_to
+from .comparison_matchers import contains_string, contains_regex, greater_than, greater_than_or_equal_to, less_than, \
+    less_than_or_equal_to, starts_with, close_to
 from .core_matchers import equal_to, anything, all_of, any_of, not_
 from .object_matchers import has_attr, has_attrs, is_instance
 from .iterable_matchers import all_elements, contains_exactly, includes, is_sequence
@@ -14,6 +15,7 @@ __all__ = [
     "Matcher",
     "is_matcher",
     "contains_string",
+    "contains_regex",
     "greater_than",
     "greater_than_or_equal_to",
     "less_than",

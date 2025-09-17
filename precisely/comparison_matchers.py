@@ -1,4 +1,5 @@
 import operator
+import re
 
 from .base import Matcher
 from .results import matched, unmatched
@@ -6,6 +7,13 @@ from .results import matched, unmatched
 
 def contains_string(value):
     return ComparisonMatcher(operator.contains, "contains the string", value)
+
+
+def contains_regex(value):
+    def regex_match_operator(string, pattern):
+        return re.match(pattern, string)
+
+    return ComparisonMatcher(regex_match_operator, "contains the regex pattern", value)
 
 
 def greater_than(value):
